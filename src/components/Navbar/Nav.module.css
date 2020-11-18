@@ -1,0 +1,23 @@
+.nav {
+    grid-area: n;
+    background-color: rgb(236, 162, 51);
+    
+}
+
+.item {
+    margin: 15px 0px 15px 15px;
+    font-size: 1.6em;
+}
+
+.item a {
+    color: white;
+    text-decoration: none;
+}
+
+.item a:hover {
+    color:blue;
+}
+
+.active a {
+    color: blue;
+}
