@@ -1,7 +1,7 @@
 .nav {
     grid-area: n;
-    background-color: rgb(236, 162, 51);
-    
+    border: 1px solid #999;
+    margin: 10px;
 }
 
 .item {
@@ -10,14 +10,14 @@
 }
 
 .item a {
-    color: white;
+    color: #666;
     text-decoration: none;
 }
 
 .item a:hover {
-    color:blue;
+    color: rgb(146, 40, 105);
 }
 
-.active a {
-    color: blue;
+.item .active {
+    color: rgb(146, 40, 105);
 }
