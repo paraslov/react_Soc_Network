@@ -10,9 +10,8 @@ const SinglePost = (props) => {
                 {props.likeCounter} likes!!
             </div>
         </div>
-
-
     )
 }
 
 export default SinglePost;
+

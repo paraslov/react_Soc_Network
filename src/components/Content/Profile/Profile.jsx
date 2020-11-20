@@ -1,19 +1,20 @@
 
-import classes from './Profile.module.css'
+
 import MyPosts from './MyPosts/MyPosts'
+import ProfileInfo from './ProfileInfo/ProfileInfo';
 
 const Profile = () => {
+
+    let postsData = [
+        {message: 'Hi, wasup broh?', likeCounter:'13', id: '1'},
+        {message: "It's my first post, lol", likeCounter:'27', id: '2'},       
+        {message: "Ulty approved", likeCounter:'41', id: '3'}       
+    ]
+
     return (
         <div>
-            <div>
-                <img src='https://thypix.com/wp-content/uploads/2018/05/Sommerlandschaft-Bilder-99.jpg' alt='bar img'></img>
-            </div>
-            <div className={classes.header}>
-                ava+desc (shabalabalabala)
-            </div>
-
-            <MyPosts/>
-            
+            <ProfileInfo />
+            <MyPosts postsData={postsData} />
         </div >
     )
 }

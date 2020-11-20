@@ -11,13 +11,19 @@
 	padding: 10px;
 }
 
-.active {
+.link {
+    text-decoration: none;
+    color: #666;
+}
+
+.link__active {
     color: rgb(146, 40, 105);
 	font-weight: bold;
 }
 
 .messages {
-	padding: 10px;
+    padding: 10px;
+    border-left: 1px solid #666;
 }
 
 .messages__item {

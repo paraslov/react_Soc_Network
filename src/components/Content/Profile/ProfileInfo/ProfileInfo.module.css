@@ -1,0 +1,9 @@
+.header {
+    margin-bottom: 15px;
+}
+
+.header__image {
+    height: 60px;
+    width: 100%;
+    background-image: url('img/bg.jpg');
+}
