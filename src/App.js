@@ -9,7 +9,7 @@ import News from './components/Content/News/News';
 import Music from './components/Content/Music/Music';
 import Settings from './components/Content/Settings/Settings';
 
-
+// changes made on big bada boom computer
 
 const App = () => {
     return (
