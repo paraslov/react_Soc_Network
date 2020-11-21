@@ -9,7 +9,11 @@ import News from './components/Content/News/News';
 import Music from './components/Content/Music/Music';
 import Settings from './components/Content/Settings/Settings';
 
+<<<<<<< HEAD
 // changes made in notebook
+=======
+// changes made on big bada boom computer
+>>>>>>> ef21444341aa5469c58f7ef5ee65e3aa749bf321
 
 const App = () => {
     return (
