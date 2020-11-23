@@ -3,37 +3,14 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import state from "./components/redux/state";
 
-let postsData = [
-    { message: 'Hi, wasup broh?', likeCounter: '13', id: '1' },
-    { message: "It's my first post, lol", likeCounter: '27', id: '2' },
-    { message: "Ulty approved it, maan", likeCounter: '41', id: '3' },
-    { message: "Props was succesfully integrated!", likeCounter: '99', id: '4' }
-]
-
-let dialogsData = [
-    { name: 'Ultimezia', userId: '1' },
-    { name: 'Estar Ultima', userId: '2' },
-    { name: 'Adel de Estar Ultima', userId: '3' },
-    { name: 'Alexandra', userId: '4' },
-    { name: 'Alexandra II', userId: '5' },
-    { name: 'JoyMe', userId: '6' },
-]
-
-let messagesData = [
-    { message: 'Why so?!', id: '1' },
-    { message: 'Is that legal?!', id: '2' },
-    { message: 'How are u?!', id: '3' },
-    { message: 'Hi, buddy!', id: '4' }
-]
 
 ReactDOM.render(
     <React.StrictMode>
-        <App 
-        postsData={postsData}
-        dialogsData={dialogsData}
-        messagesData={messagesData}
-        />
+        <App state={state} />
+        {console.log(state.profilePage)}
+        {console.log(state.messegesPage)}
     </React.StrictMode>,
     document.getElementById('root')
 );

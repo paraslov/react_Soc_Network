@@ -1,12 +1,8 @@
-.nav {
-    grid-area: n;
-    border: 1px solid #999;
-    margin: 10px;
-}
 
 .item {
     margin: 15px 0px 15px 15px;
-    font-size: 1.6em;
+    font-size: 1.4em;
+    font-weight: 600;
 }
 
 .item a {

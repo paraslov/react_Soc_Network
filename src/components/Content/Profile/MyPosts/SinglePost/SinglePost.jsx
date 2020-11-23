@@ -4,7 +4,7 @@ const SinglePost = (props) => {
     return (
 
         <div className={classes.item}>
-            <img src="https://i.ytimg.com/vi/Y5GLCBjHR8U/maxresdefault.jpg" alt="ava" />
+            <img className={classes.avatar__image} src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1gIPy2ZFVryg3q7VZfirsVVtMTzmfoG2P5Q&usqp=CAU" alt="ava" />
             {props.message}
             <div>
                 {props.likeCounter} likes!!

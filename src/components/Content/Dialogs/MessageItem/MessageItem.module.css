@@ -1,0 +1,23 @@
+.circle {
+    width: 15px;
+    height: 15px;
+    border: 2px solid #666;
+    border-radius: 30px;
+    margin-right: 5px;
+}
+.messages__item {
+	margin-right: 10px;
+}
+
+.user__message {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.friend__message {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+}

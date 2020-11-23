@@ -1,6 +1,6 @@
 .dialogs {
 	display: grid;
-	grid-template-columns: 2fr 10fr;
+	grid-template-columns: 3fr 10fr;
 }
 
 .dialogs__item {
@@ -8,7 +8,16 @@
 }
 
 .item {
-	padding: 10px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.avatar__image {
+    width: 40px;
+    height: 40px;
+    border-radius: 30px;
+    margin-right: 10px;
 }
 
 .link {
@@ -22,10 +31,7 @@
 }
 
 .messages {
+    width: 100%;
     padding: 10px;
     border-left: 1px solid #666;
-}
-
-.messages__item {
-	padding: 10px;
 }

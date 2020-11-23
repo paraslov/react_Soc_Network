@@ -12,6 +12,12 @@
     grid-template-columns: 2fr 10fr;
 }
 
+.app-wrapper__sidebar {
+    grid-area: n;
+    border: 1px solid #999;
+    margin: 10px;
+}
+
 .app-wrapper__content {
     grid-area: c;
     margin: 10px;
