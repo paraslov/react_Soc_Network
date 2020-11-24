@@ -9,6 +9,7 @@ import News from './components/Content/News/News';
 import Music from './components/Content/Music/Music';
 import Settings from './components/Content/Settings/Settings';
 import Sidebar from './components/Sidebar/Sidebar';
+import { postChangeState } from './components/redux/state';
 
 // changes made in notebook
 // changes made on big bada boom computer
@@ -26,11 +27,15 @@ const App = (props) => {
                 </div>
                 <div className='app-wrapper__content'>
                     <Route path='/profile' 
-                    render={ () => <Profile state={props.state.profilePage} addPost={props.addPost}/>} />
+                    render={ () => <Profile profilePage={props.state.profilePage} 
+                    addPost={props.addPost}
+                    postChangeState={props.postChangeState}
+                    />} />
 
                     <Route path='/dialogs' render={ () => <Dialogs 
-                        state={props.state.messagesPage}
-                        sendMessage={props.sendMessage} />} />
+                        messagesPage={props.state.messagesPage}
+                        sendMessage={props.sendMessage}
+                        messageChangeState={props.messageChangeState} />} />
                     
                     <Route path='/news' render={ () => <News />} />
                     <Route path='/music' render={ () => <Music />} />

@@ -1,4 +1,5 @@
 
+import { renderMyApp } from './../../render';
 let state = {
     profilePage: {
         postsData: [
@@ -6,7 +7,8 @@ let state = {
             { message: "It's my first post, lol", likeCounter: '27', id: '2' },
             { message: "Ulty approved it, maan", likeCounter: '41', id: '3' },
             { message: "Props was succesfully integrated!", likeCounter: '66', id: '4' }
-        ]
+        ],
+        newPostText: '',
     },
     messagesPage: {
         dialogsData: [
@@ -22,28 +24,51 @@ let state = {
             { message: 'Is that legal?!', id: '2' },
             { message: 'How are u?!', id: '3' },
             { message: 'Hi, buddy!', id: '4' }
-        ]
+        ],
+        newMessageText: '',
     }
 }
 
 export let sendMessage = (messageText) => {
+
     let newMessage = {
-        message: messageText,
+        message: state.messagesPage.newMessageText,
         id: state.messagesPage.messagesData.length + 1
     }
 
     state.messagesPage.messagesData.push(newMessage);
+    state.messagesPage.newMessageText='';
+    renderMyApp(state);
 }
 
-export let addPost = (messageText) => {
+export let addPost = () => {
 
     let newPost = {
-        message: messageText,
+        message: state.profilePage.newPostText,
         likeCounter: 0,
         id: state.profilePage.postsData.length + 1,
     };
 
     state.profilePage.postsData.push(newPost);
+    state.profilePage.newPostText='';
+    renderMyApp(state);
 }
+
+export let postChangeState = (newText) => {
+
+    state.profilePage.newPostText = newText;
+
+    renderMyApp(state);
+
+}
+
+export let messageChangeState = (newText) => {
+
+    state.messagesPage.newMessageText = newText;
+
+    renderMyApp(state);
+
+}
+
 
 export default state;
