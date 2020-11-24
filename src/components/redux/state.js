@@ -26,4 +26,24 @@ let state = {
     }
 }
 
+export let sendMessage = (messageText) => {
+    let newMessage = {
+        message: messageText,
+        id: state.messagesPage.messagesData.length + 1
+    }
+
+    state.messagesPage.messagesData.push(newMessage);
+}
+
+export let addPost = (messageText) => {
+
+    let newPost = {
+        message: messageText,
+        likeCounter: 0,
+        id: state.profilePage.postsData.length + 1,
+    };
+
+    state.profilePage.postsData.push(newPost);
+}
+
 export default state;

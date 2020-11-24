@@ -3,14 +3,21 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { BrowserRouter } from 'react-router-dom';
 import state from "./components/redux/state";
+import { addPost } from "./components/redux/state";
+import { sendMessage } from "./components/redux/state";
+
 
 
 ReactDOM.render(
     <React.StrictMode>
-        <App state={state} />
-        {console.log(state.profilePage)}
-        {console.log(state.messegesPage)}
+        <BrowserRouter>
+            <App 
+                state={state} 
+                addPost={addPost}
+                sendMessage={sendMessage} />
+        </BrowserRouter>
     </React.StrictMode>,
     document.getElementById('root')
 );

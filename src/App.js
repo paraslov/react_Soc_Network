@@ -18,7 +18,6 @@ import Sidebar from './components/Sidebar/Sidebar';
 const App = (props) => {
     
     return (
-        <BrowserRouter>
             <div className='app-wrapper'>
                 <Header />
                 <div className='app-wrapper__sidebar'>
@@ -27,9 +26,11 @@ const App = (props) => {
                 </div>
                 <div className='app-wrapper__content'>
                     <Route path='/profile' 
-                    render={ () => <Profile state={props.state.profilePage} />} />
+                    render={ () => <Profile state={props.state.profilePage} addPost={props.addPost}/>} />
 
-                    <Route path='/dialogs' render={ () => <Dialogs state={props.state.messagesPage} />} />
+                    <Route path='/dialogs' render={ () => <Dialogs 
+                        state={props.state.messagesPage}
+                        sendMessage={props.sendMessage} />} />
                     
                     <Route path='/news' render={ () => <News />} />
                     <Route path='/music' render={ () => <Music />} />
@@ -39,9 +40,7 @@ const App = (props) => {
                 {console.log(props.state.profilePage)}
                 
                 {console.log(props.state.messagesPage)}
-            </div>
-        </BrowserRouter>
-        
+            </div>       
     );
 }
 

@@ -1,9 +1,15 @@
 .dialogs {
-	display: grid;
+    display: grid;
+    grid-template-areas: 
+    "d m"
+    "s m";
+
+    grid-template-rows: 8fr 3fr;
 	grid-template-columns: 3fr 10fr;
 }
 
 .dialogs__item {
+    grid-area: d;
 	padding: 10px;
 }
 
@@ -31,7 +37,19 @@
 }
 
 .messages {
+    grid-area: m;
     width: 100%;
     padding: 10px;
     border-left: 1px solid #666;
 }
+
+.send__message {
+    grid-area: s;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+    margin: 10px;
+}
+
+

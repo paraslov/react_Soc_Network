@@ -25,6 +25,10 @@
     border: 1px solid #999;
 }
 
+textarea {
+    resize: none;
+}
+
 
 
 
