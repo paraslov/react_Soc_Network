@@ -26,25 +26,21 @@ const App = (props) => {
                     <Sidebar state={props.state.messagesPage} />
                 </div>
                 <div className='app-wrapper__content'>
-                    <Route path='/profile' 
-                    render={ () => <Profile profilePage={props.state.profilePage} 
-                    addPost={props.addPost}
-                    postChangeState={props.postChangeState}
-                    />} />
+                    <Route path='/profile' render={ () => 
+                        <Profile 
+                            profilePage={props.state.profilePage} 
+                            dispatch={props.dispatch} />} />
 
-                    <Route path='/dialogs' render={ () => <Dialogs 
-                        messagesPage={props.state.messagesPage}
-                        sendMessage={props.sendMessage}
-                        messageChangeState={props.messageChangeState} />} />
+                    <Route path='/dialogs' render={ () => 
+                        <Dialogs 
+                            messagesPage={props.state.messagesPage}
+                            dispatch={props.dispatch} />} />
                     
                     <Route path='/news' render={ () => <News />} />
                     <Route path='/music' render={ () => <Music />} />
                     <Route path='/settings' render={ () => <Settings />} />
 
                 </div>
-                {console.log(props.state.profilePage)}
-                
-                {console.log(props.state.messagesPage)}
             </div>       
     );
 }

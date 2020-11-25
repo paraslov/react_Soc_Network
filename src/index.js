@@ -3,31 +3,27 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import { BrowserRouter } from 'react-router-dom';
-import { addPost, postChangeState, messageChangeState, subscriber } from "./components/redux/state";
-import { sendMessage } from "./components/redux/state";
 
 import reportWebVitals from './reportWebVitals';
 import store from "./components/redux/state";
 
 
 
-let renderMyApp = () => {
+let renderMyApp = (state) => {
 	ReactDOM.render(
 	<React.StrictMode>
 		<BrowserRouter>
 			<App
-				state={store.getState()}
-				addPost={store.addPost}
-				sendMessage={store.sendMessage}
-				postChangeState={store.postChangeState}
-				messageChangeState={store.messageChangeState} />
+                state={state}
+                dispatch = {store.dispatch.bind(store)}
+			/>
 		</BrowserRouter>
 	</React.StrictMode>,
 	document.getElementById('root')
 );
 	}
 
-renderMyApp();
+renderMyApp(store.getState());
 
 store.subscribe(renderMyApp);
 

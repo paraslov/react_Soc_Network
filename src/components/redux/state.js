@@ -1,6 +1,8 @@
 let store = {
-    _subscriber() { console.log('update')},
 
+//================= Inner props =========================
+
+    _subscriber() { console.log('update')},
     _state: {
         profilePage: {
             postsData: [
@@ -30,50 +32,44 @@ let store = {
         }
     },
 
+//================= Initialization========================
+
     getState() {
+        this.that = this;
         return this._state;
     },
-
     subscribe(observer) {
         this._subscriber = observer;
     },
 
-    sendMessage() {
+// ===== Functions ========================================
 
-        let newMessage = {
-            message: this._state.messagesPage.newMessageText,
-            id: this._state.messagesPage.messagesData.length + 1
+    dispatch(action) {       
+        if (action.type === 'ADD-POST') {
+            let newPost = {
+                message: this._state.profilePage.newPostText,
+                likeCounter: 0,
+                id: this._state.profilePage.postsData.length + 1,
+            };
+            this._state.profilePage.postsData.push(newPost);
+            this._state.profilePage.newPostText = '';
+            this._subscriber(this._state);
+        } else if (action.type === 'UPDATE-NEW-POST-TEXT') {
+            this._state.profilePage.newPostText = action.newText;
+            this._subscriber(this._state);
+        } else if (action.type === 'SEND-MESSAGE') {
+            let newMessage = {
+                message: this._state.messagesPage.newMessageText,
+                id: this._state.messagesPage.messagesData.length + 1
+            }
+            this._state.messagesPage.messagesData.push(newMessage);
+            this._state.messagesPage.newMessageText = '';
+            this._subscriber(this._state);
+        } else if (action.type === 'UPDATE-MESSAGE-TEXT') {
+            this._state.messagesPage.newMessageText = action.newText;
+            this._subscriber(this._state);
         }
-
-        this._state.messagesPage.messagesData.push(newMessage);
-        this._state.messagesPage.newMessageText = '';
-        this._subscriber(this._state);
-    },
-
-    addPost() {
-
-        let newPost = {
-            message: this._state.profilePage.newPostText,
-            likeCounter: 0,
-            id: this._state.profilePage.postsData.length + 1,
-        };
-
-        this._state.profilePage.postsData.push(newPost);
-        this._state.profilePage.newPostText = '';
-        this._subscriber(this._state);
-    },
-
-    postChangeState(newText) {
-        debugger;
-        this._state.profilePage.newPostText = newText;
-        this._subscriber(this._state);
-    },
-
-    messageChangeState(newText) {
-        this._state.messagesPage.newMessageText = newText;
-        this._subscriber(this._state);
-    },
-
+    }
 } 
 
 
