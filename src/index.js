@@ -1,9 +1,35 @@
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './index.css';
+import App from './App';
+import { BrowserRouter } from 'react-router-dom';
+import { addPost, postChangeState, messageChangeState, subscriber } from "./components/redux/state";
+import { sendMessage } from "./components/redux/state";
+
 import reportWebVitals from './reportWebVitals';
-import state from "./components/redux/state";
-import { renderMyApp } from './render';
+import store from "./components/redux/state";
 
 
-renderMyApp(state);
+
+let renderMyApp = () => {
+	ReactDOM.render(
+	<React.StrictMode>
+		<BrowserRouter>
+			<App
+				state={store.getState()}
+				addPost={store.addPost}
+				sendMessage={store.sendMessage}
+				postChangeState={store.postChangeState}
+				messageChangeState={store.messageChangeState} />
+		</BrowserRouter>
+	</React.StrictMode>,
+	document.getElementById('root')
+);
+	}
+
+renderMyApp();
+
+store.subscribe(renderMyApp);
 
 
 
