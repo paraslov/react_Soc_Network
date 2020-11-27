@@ -9,7 +9,6 @@ import News from './components/Content/News/News';
 import Music from './components/Content/Music/Music';
 import Settings from './components/Content/Settings/Settings';
 import Sidebar from './components/Sidebar/Sidebar';
-import { postChangeState } from './components/redux/state';
 
 // changes made in notebook
 // changes made on big bada boom computer

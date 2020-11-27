@@ -5,7 +5,9 @@
     "s m";
 
     grid-template-rows: 8fr 3fr;
-	grid-template-columns: 3fr 10fr;
+    grid-template-columns: 3fr 10fr;
+    
+
 }
 
 .dialogs__item {
@@ -38,7 +40,6 @@
 
 .messages {
     grid-area: m;
-    width: 100%;
     padding: 10px;
     border-left: 1px solid #666;
 }

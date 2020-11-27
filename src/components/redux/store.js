@@ -1,3 +1,6 @@
+import messagesReducer from "./messages_reducer";
+import profileReducer from "./profile_reducer";
+
 let store = {
 
 //================= Inner props =========================
@@ -23,8 +26,8 @@ let store = {
                 { name: 'JoyMe', userId: '6', avatar: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1gIPy2ZFVryg3q7VZfirsVVtMTzmfoG2P5Q&usqp=CAU' }
             ],
             messagesData: [
-                { message: 'Why so?!', id: '1' },
-                { message: 'Is that legal?!', id: '2' },
+                { message: 'Hop Hey :)', id: '1' },
+                { message: 'Is that legal?!', id: '2' }, 
                 { message: 'How are u?!', id: '3' },
                 { message: 'Hi, buddy!', id: '4' }
             ],
@@ -42,35 +45,16 @@ let store = {
         this._subscriber = observer;
     },
 
-// ===== Functions ========================================
+// ===== Dispatch ========================================
 
-    dispatch(action) {       
-        if (action.type === 'ADD-POST') {
-            let newPost = {
-                message: this._state.profilePage.newPostText,
-                likeCounter: 0,
-                id: this._state.profilePage.postsData.length + 1,
-            };
-            this._state.profilePage.postsData.push(newPost);
-            this._state.profilePage.newPostText = '';
-            this._subscriber(this._state);
-        } else if (action.type === 'UPDATE-NEW-POST-TEXT') {
-            this._state.profilePage.newPostText = action.newText;
-            this._subscriber(this._state);
-        } else if (action.type === 'SEND-MESSAGE') {
-            let newMessage = {
-                message: this._state.messagesPage.newMessageText,
-                id: this._state.messagesPage.messagesData.length + 1
-            }
-            this._state.messagesPage.messagesData.push(newMessage);
-            this._state.messagesPage.newMessageText = '';
-            this._subscriber(this._state);
-        } else if (action.type === 'UPDATE-MESSAGE-TEXT') {
-            this._state.messagesPage.newMessageText = action.newText;
-            this._subscriber(this._state);
-        }
+    dispatch(action) {      
+        
+        this._state.profilePage = profileReducer(this._state.profilePage, action);
+        this._state.messagesPage = messagesReducer(this._state.messagesPage, action);
+
+        this._subscriber(this._state);
+
     }
 } 
-
 
 export default store;

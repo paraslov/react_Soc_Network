@@ -1,21 +1,24 @@
 import React from 'react';
-import classes from './MyPosts.module.css'
-import SinglePost from './SinglePost/SinglePost'
+import classes from './MyPosts.module.css';
+import SinglePost from './SinglePost/SinglePost';
+import { addPostActionCreator } from './../../../redux/profile_reducer'
+import {updateNewPostTextActionCreator} from './../../../redux/profile_reducer'
+
 
 const MyPosts = (props) => {
 
     let postsElements = props.postsData
     .map( post => <SinglePost likeCounter={post.likeCounter} message={post.message} />)
 
-    let newPostText = React.createRef();
 
-    let addPost = () => {
-        props.dispatch( {type: 'ADD-POST'} );
+
+    let onAddPostButtonClick = () => {
+        props.dispatch( addPostActionCreator() );
     }
 
-    let textUpdate = () => {
-        let text = newPostText.current.value;
-        props.dispatch( {type: 'UPDATE-NEW-POST-TEXT', newText: text} );
+    let onPostTextChange = (e) => {
+        let text = e.target.value;
+        props.dispatch( updateNewPostTextActionCreator(text));
     }
 
     return (
@@ -23,10 +26,11 @@ const MyPosts = (props) => {
             <div className={classes.newPost}>
                 <h3>My Posts</h3>
                 <div>
-                    <textarea ref={newPostText} onChange={textUpdate} cols="50" rows="7" value={props.newPostText}/>
+                    <textarea onChange={onPostTextChange} value={props.newPostText}
+                    cols="50" rows="7" placeholder = "enter your post" />
                 </div>
                 <div>
-                    <button onClick={ addPost }>Add post</button>
+                    <button onClick={ onAddPostButtonClick }>Add post</button>
                 </div>
             </div>
             <div className={classes.oldPosts}>

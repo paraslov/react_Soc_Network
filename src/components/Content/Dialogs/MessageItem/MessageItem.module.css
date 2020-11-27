@@ -6,7 +6,9 @@
     margin-right: 5px;
 }
 .messages__item {
-	margin-right: 10px;
+    margin-right: 10px;
+    max-width: 100%;
+    word-wrap: normal;
 }
 
 .user__message {
