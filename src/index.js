@@ -5,7 +5,7 @@ import App from './App';
 import { BrowserRouter } from 'react-router-dom';
 
 import reportWebVitals from './reportWebVitals';
-import store from "./components/redux/store";
+import store from "./components/redux/redux_store";
 
 
 
@@ -14,6 +14,7 @@ let renderMyApp = (state) => {
 	<React.StrictMode>
 		<BrowserRouter>
 			<App
+                store={store}
                 state={state}
                 dispatch = {store.dispatch.bind(store)}
 			/>
@@ -25,7 +26,10 @@ let renderMyApp = (state) => {
 
 renderMyApp(store.getState());
 
-store.subscribe(renderMyApp);
+store.subscribe( () => {
+    let state = store.getState();
+    renderMyApp(state);
+});
 
 
 
