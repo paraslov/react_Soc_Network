@@ -21,6 +21,7 @@ const profileReducer = (state = initialState, action) => {
 				id: state.postsData.length + 1,
 			};
 			state.postsData.push(newPost);
+			debugger
 			state.newPostText = '';
 			return state;
 

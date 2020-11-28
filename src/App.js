@@ -7,31 +7,29 @@ import Profile from './components/Content/Profile/Profile';
 import News from './components/Content/News/News';
 import Music from './components/Content/Music/Music';
 import Settings from './components/Content/Settings/Settings';
-import Sidebar from './components/Sidebar/Sidebar';
 import DialogsContainer from './components/Content/Dialogs/DialogsContainer';
+import SidebarConteiner from './components/Sidebar/SidebarConteiner';
 
 // changes made in notebook
 // changes made on big bada boom computer
 
 
 
-const App = (props) => {
+const App = () => {
     
     return (
             <div className='app-wrapper'>
                 <Header />
                 <div className='app-wrapper__sidebar'>
                     <Navbar />                    
-                    <Sidebar state={props.state.messagesPage} />
+                    <SidebarConteiner />
                 </div>
                 <div className='app-wrapper__content'>
                     <Route path='/profile' render={ () => 
-                        <Profile 
-                            store = {props.store}/>} />
+                        <Profile />} />
 
                     <Route path='/dialogs' render={ () => 
-                        <DialogsContainer 
-                            store = {props.store}/>} />
+                        <DialogsContainer />} />
                     
                     <Route path='/news' render={ () => <News />} />
                     <Route path='/music' render={ () => <Music />} />

@@ -32,6 +32,7 @@ const messagesReducer = (state = initialState, action) => {
 			return state;
 
 		case UPDATE_MESSAGE_TEXT:
+			debugger;
 			state.newMessageText = action.newText;
 			return state;
 
