@@ -10,8 +10,8 @@ import { Provider } from 'react-redux';
 
 
 
-let renderMyApp = () => {
-	ReactDOM.render(
+
+ReactDOM.render(
 	<React.StrictMode>
 		<BrowserRouter>
 			<Provider store={store}>
@@ -21,13 +21,6 @@ let renderMyApp = () => {
 	</React.StrictMode>,
 	document.getElementById('root')
 );
-	}
-
-renderMyApp(store.getState());
-
-store.subscribe( () => {
-    renderMyApp();
-});
 
 
 
