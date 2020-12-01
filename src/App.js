@@ -9,8 +9,7 @@ import Music from './components/Content/Music/Music';
 import Settings from './components/Content/Settings/Settings';
 import DialogsContainer from './components/Content/Dialogs/DialogsContainer';
 import SidebarConteiner from './components/Sidebar/SidebarConteiner';
-import UsersContainer from './components/Content/Users/UserList/UsersContainer';
-import Users from './components/Content/Users/Users';
+import UsersListContainer from './components/Content/Users/UserList/UsersListContainer';
 
 // changes made in notebook
 // changes made on big bada boom computer
@@ -34,7 +33,7 @@ const App = () => {
                         <DialogsContainer />} />
 
                     <Route path='/users' render={ () => 
-                        <Users />} />
+                        <UsersListContainer />} />
                     
                     <Route path='/news' render={ () => <News />} />
                     <Route path='/music' render={ () => <Music />} />

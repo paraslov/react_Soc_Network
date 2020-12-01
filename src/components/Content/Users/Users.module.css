@@ -1,0 +1,51 @@
+.userList__item {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 20px;
+}
+
+.functional {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+}
+
+.avatarImg {
+	text-align: center;
+	margin-bottom: 15px;
+}
+
+.avatarImg img{
+	width: 70px;
+	height: 70px;
+	border-radius: 40px;
+}
+
+.followBtn {
+	width: 80px;
+	height: 30px;
+	color:#666;
+	font-weight: 600;
+	background-color: rgb(250, 250, 250);
+}
+
+.info {
+	display: flex;
+	justify-content: space-between;
+
+	width: 100%;
+	height: 90px;
+	border: 1px solid #666;
+	border-radius: 10px;
+
+	margin-left: 15px;
+}
+
+.info__item {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	padding: 10px;
+}

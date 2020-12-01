@@ -6,7 +6,7 @@ import SinglePost from './SinglePost/SinglePost';
 const MyPosts = (props) => {
 
     let postsElements = props.postsData
-    .map( post => <SinglePost likeCounter={post.likeCounter} message={post.message} />)
+    .map( post => <SinglePost key={post.id} likeCounter={post.likeCounter} message={post.message} />)
 
     let onAddPostButtonClick = () => {
         props.addPost();

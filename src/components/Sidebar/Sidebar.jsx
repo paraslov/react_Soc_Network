@@ -3,7 +3,7 @@ import classes from './Sidebar.module.css';
 
 const Sidebar = (props) => {
                     let FriendList = props.dialogsData.slice(0, 3)
-                        .map(list => <FriendItem avatar={list.avatar} userId={list.userId} name={list.name} />)
+                        .map(list => <FriendItem key={list.userId} avatar={list.avatar} userId={list.userId} name={list.name} />)
 
                     return (
                         <div className={classes.sidebar}>

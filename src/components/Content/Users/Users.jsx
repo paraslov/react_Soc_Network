@@ -1,4 +1,4 @@
-import UsersContainer from './UserList/UsersContainer';
+import UsersListContainer from './UserList/UsersListContainer';
 import classes from './Users.module.css'
 
 const Users = () => {
@@ -10,7 +10,7 @@ const Users = () => {
             </div>
 
             <div className={classes.usersList}>
-                <UsersContainer />
+                <UsersListContainer />
             </div>
         </div>
     )
