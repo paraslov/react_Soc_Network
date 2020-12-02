@@ -4,7 +4,7 @@ const SET_USERS = 'SET_USERS';
 
 let initialState = {
     users: [ ],
-}
+};
 
 // props.setUsers(
 //     [{
@@ -54,7 +54,6 @@ const usersReducer = (state = initialState, action) => {
             }
 
         case SET_USERS:
-            debugger
             return {
                 ...state,
                 users: [...state.users, ...action.users]
