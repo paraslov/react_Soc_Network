@@ -1,3 +1,16 @@
+.pages {
+	color: #555;
+}
+
+.pages span {
+	cursor: pointer;
+	padding: 5px;
+}
+
+.selectedPage {
+	font-weight: 700;
+}
+
 .userList__item {
 	display: flex;
 	justify-content: space-between;

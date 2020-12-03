@@ -1,21 +1,28 @@
 import React from 'react';
 import classes from './../Users.module.css'
-import * as axios from 'axios';
 import userPhoto from '../../../../assets/images/img.jpeg'
 
-class UsersList extends React.Component {
+const UsersList = (props) => {
 
-    componentDidMount ()  {
-        axios.get('https://social-network.samuraijs.com/api/1.0/users').then
-        (response  => {
-            this.props.setUsers(response.data.items);
-        });
+    let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
+
+    let pages = [];
+    for (let i = 1; i <= pagesCount; i++) {
+        pages.push(i);
     }
 
-    render ()  {
         return <div>
+            <div className={classes.pages}>
+                {pages.map( p => {
+                    return <span 
+                        className={props.currentPage=== p && classes.selectedPage}
+                        onClick={(e) => {props.onPageChanged(p)}}
+                        >{p}</span> })}
+                
+
+            </div>
         { 
-        this.props.users.map( u => 
+        props.users.map( u => 
         <div key={u.id} className={classes.userList__item}>
             <div className={classes.fuctional}>
                 <div className={classes.avatarImg}>
@@ -24,8 +31,8 @@ class UsersList extends React.Component {
                 </div>
                 <div>
                     {u.followed ?
-                        <button className={classes.followBtn} onClick={() => this.props.unfollow(u.id)}>Follow</button> :
-                        <button className={classes.followBtn} onClick={() => this.props.follow(u.id)}>Unfollow</button>}
+                        <button className={classes.followBtn} onClick={() => props.unfollow(u.id)}>Follow</button> :
+                        <button className={classes.followBtn} onClick={() => props.follow(u.id)}>Unfollow</button>}
                 </div>
             </div>
             <div className={classes.info}>
@@ -42,8 +49,8 @@ class UsersList extends React.Component {
         }
 
     </div>
-    }
 }
+
 
 
 export default UsersList;
