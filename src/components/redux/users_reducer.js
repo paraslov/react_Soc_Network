@@ -1,15 +1,23 @@
+// ================= Action creator Constants ======================================>
+
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
 const SET_USERS = 'SET_USERS';
 const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
 const SET_TOTAL_USERS_COUNT = 'SET_TOTAL_USERS_COUNT';
+const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING';
+
+//================== Initial State =================================================>
 
 let initialState = {
     users: [ ],
     pageSize: 7,
     totalUsersCount: 0,
-    currentPage: 1
+    currentPage: 1,
+    isFetching: true,
 };
+
+//================== Reducers =========================================================>
 
 const usersReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -53,6 +61,12 @@ const usersReducer = (state = initialState, action) => {
                 totalUsersCount: action.totalCount
             }
 
+        case TOGGLE_IS_FETCHING:
+            return {
+                ...state,
+                isFetching: action.isFetching
+            }
+
         default:
             return state;
     }
@@ -61,15 +75,17 @@ const usersReducer = (state = initialState, action) => {
 
 //====== Action Creators =============================================
 
-export const followAC = (userId) => ({ type: FOLLOW, userId })
+export const follow = (userId) => ({ type: FOLLOW, userId })
 
-export const unfollowAC = (userId) => ({ type: UNFOLLOW, userId })
+export const unfollow = (userId) => ({ type: UNFOLLOW, userId })
 
-export const setUsersAC = (users) => ({ type: SET_USERS, users })
+export const setUsers = (users) => ({ type: SET_USERS, users })
 
-export const setCurrentPageAC = (currentPage) => ({ type: SET_CURRENT_PAGE, currentPage})
+export const setCurrentPage = (currentPage) => ({ type: SET_CURRENT_PAGE, currentPage})
 
-export const setTotalUsersCountAC = (totalCount) => ({ type: SET_TOTAL_USERS_COUNT, totalCount})
+export const setTotalUsersCount = (totalCount) => ({ type: SET_TOTAL_USERS_COUNT, totalCount})
+
+export const toggleIsFetching = (isFetching) => ({ type: TOGGLE_IS_FETCHING, isFetching})
 
 export default usersReducer;
 
