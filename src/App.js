@@ -3,13 +3,13 @@ import { Route } from 'react-router-dom';
 import './App.css';
 import Header from './components/Header/Header';
 import Navbar from './components/Navbar/Nav';
-import Profile from './components/Content/Profile/Profile';
 import News from './components/Content/News/News';
 import Music from './components/Content/Music/Music';
 import Settings from './components/Content/Settings/Settings';
 import DialogsContainer from './components/Content/Dialogs/DialogsContainer';
 import SidebarConteiner from './components/Sidebar/SidebarConteiner';
 import Users from './components/Content/Users/Users';
+import ProfileContainer from './components/Content/Profile/ProfileContainer';
 
 // changes made in notebook
 // changes made on big bada boom computer
@@ -27,7 +27,7 @@ const App = () => {
                 </div>
                 <div className='app-wrapper__content'>
                     <Route path='/profile' render={ () => 
-                        <Profile />} />
+                        <ProfileContainer />} />
 
                     <Route path='/dialogs' render={ () => 
                         <DialogsContainer />} />

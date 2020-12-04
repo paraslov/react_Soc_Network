@@ -6,4 +6,45 @@
     height: 60px;
     width: 100%;
     background-image: url('img/bg.jpg');
+    margin-bottom: 15px;
+}
+
+.fullName {
+    color: #555;
+    font-size: 1.4em;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.info__header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.info__header__item {
+    color: #555;
+    margin-right: 20px;
+}
+
+.jobInfo {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.jobInfo img {
+    width: 50px;
+    height: 50px;
+}
+
+.jobInfo__item {
+    color: #555;
+    font-weight: 600;
+    margin-right: 20px;
+}
+
+.contacts__item {
+    color: #555;
+    margin-bottom: 7px;
 }
