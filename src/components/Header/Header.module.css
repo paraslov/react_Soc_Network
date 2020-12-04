@@ -1,6 +1,7 @@
 .header {
     grid-area: h;
     display: flex;
+    justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
     background-image: url('./img/bg.jpg');
@@ -10,4 +11,25 @@
     margin-left: 20px;
     height: 80px;
 
+}
+
+.loginBlock {
+    display: flex;
+    padding: 20px;
+    margin-right: 20px;
+    border: 1px solid #666;
+}
+
+.loginBlock a {
+    color: #555;
+    font-size: 1.5em;
+    text-decoration: none;
+}
+
+.loginBlock__item {
+    margin-right: 20px;
+}
+
+.loginBlock__item:last-child {
+    margin-right: 0;
 }
