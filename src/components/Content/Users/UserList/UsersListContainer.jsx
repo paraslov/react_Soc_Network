@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import UsersList from './UsersList';
 import Preloader from '../../../Common/Preloader/Preloader';
 import { userUnfollow, userFollow, getUsers} from './../../../../redux/users_reducer';
+import { withAuthRedirect } from '../../../../hoc/withAuthRedirect';
+import { compose } from 'redux';
 
 class UsersListContainer extends React.Component {
 
@@ -72,9 +74,10 @@ let meStateToProps = (state) => {
 //     }
 // }
 
-export default connect(meStateToProps, {
-    // Action creators:
-    
-    // Thunk creators:
-    getUsers, userUnfollow, userFollow,
-    })(UsersListContainer);
+export default compose(
+    connect(meStateToProps, {
+        // Thunk creators:
+        getUsers, userUnfollow, userFollow,
+    }),
+    withAuthRedirect
+)(UsersListContainer);

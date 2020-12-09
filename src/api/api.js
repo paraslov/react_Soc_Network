@@ -24,3 +24,17 @@ export const usersAPI = {
     },
 }
 
+export const profileAPI = {
+    setUser (userId) {
+        return instance.get(`profile/` + userId).then(response => {
+            return response.data;
+        })
+    }
+}
+
+export const headerAPI = {
+    loginUser () {
+        return instance.get(`auth/me`).then(response => {return response.data});
+    }
+}
+

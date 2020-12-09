@@ -1,15 +1,16 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 import './App.css';
-import Navbar from './components/Navbar/Nav';
-import News from './components/Content/News/News';
-import Music from './components/Content/Music/Music';
-import Settings from './components/Content/Settings/Settings';
 import DialogsContainer from './components/Content/Dialogs/DialogsContainer';
-import SidebarConteiner from './components/Sidebar/SidebarConteiner';
-import Users from './components/Content/Users/Users';
+import Music from './components/Content/Music/Music';
+import News from './components/Content/News/News';
 import ProfileContainer from './components/Content/Profile/ProfileContainer';
+import Settings from './components/Content/Settings/Settings';
+import Users from './components/Content/Users/Users';
 import HeaderContainer from './components/Header/HeaderContainer';
+import Navbar from './components/Navbar/Nav';
+import LoginPage from './components/Login/Login';
+import SidebarConteiner from './components/Sidebar/SidebarConteiner';
 
 // changes made in notebook
 // changes made on big bada boom computer
@@ -34,6 +35,9 @@ const App = () => {
 
                     <Route path='/users' render={ () => 
                         <Users />} />
+
+                    <Route path='/login' render={ () => 
+                        <LoginPage />} />
                     
                     <Route path='/news' render={ () => <News />} />
                     <Route path='/music' render={ () => <Music />} />

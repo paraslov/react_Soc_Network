@@ -3,7 +3,7 @@ import classes from './Settings.module.css'
 const Settings = (props) => {
 	return (
 		<div>
-			News up!!!
+			Your settings is here.
 		</div>
 	)
 }

@@ -22,7 +22,7 @@ let initialState = {
     followingInProgress: [],
 };
 
-//================== Reducers =========================================================>
+//================== Reducer =========================================================>
 
 const usersReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -105,7 +105,6 @@ export const toggleFollowingProgress = (followingInProgress, userId) =>
 
 
 //=========== Thunk Creators ============================================================>
-
 
 export const getUsers = (currentPage, pageSize) => {
     return (dispatch) => {

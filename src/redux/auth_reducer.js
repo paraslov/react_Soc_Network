@@ -1,3 +1,6 @@
+import { headerAPI } from "../api/api";
+
+
 // ================= Action creator Constants ======================================>
 
 const SET_USERS_DATA = 'SET_USERS_DATA';
@@ -32,5 +35,20 @@ const authReducer = (state = initialState, action) => {
 
 export const setAuthUsersData = (userId, email, login) => 
 ({ type: SET_USERS_DATA, data: {userId, email, login} })
+
+//=========== Thunk Creators ============================================================>
+
+export const userAuthorization = () => {
+    return (dispatch) => {
+        headerAPI.loginUser().then
+            (data => {
+                if (data.resultCode === 0) {
+                    let { id, email, login } = data.data;
+                    dispatch(setAuthUsersData(id, email, login));
+                }
+            })
+    }
+} 
+
 
 export default authReducer;
