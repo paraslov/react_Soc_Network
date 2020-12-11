@@ -6,6 +6,7 @@ import { profileAPI } from "../api/api";
 const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
+const SET_USER_STATUS = 'SET_USER_STATUS';
 
 //================== Initial State =================================================>
 
@@ -16,8 +17,9 @@ let initialState = {
             { message: "Ulty approved it, maan", likeCounter: '41', id: '3' },
             { message: "Props was succesfully integrated!", likeCounter: '66', id: '4' }
 		],
-		profile: null,
+		profile: '',
         newPostText: '',
+        status: '',
 }
 
 //================== Reducer =========================================================>
@@ -45,6 +47,12 @@ const profileReducer = (state = initialState, action) => {
 			return {
 				...state,
 				profile: action.profile
+            }
+            
+		case SET_USER_STATUS:
+			return {
+				...state,
+				status: action.status
 			}
 		
 		default: 
@@ -61,14 +69,30 @@ export const updateNewPostTextActionCreator = (text) => ({ type: UPDATE_NEW_POST
 
 export const setUserProfile = (profile) => ({ type: SET_USER_PROFILE, profile })
 
+export const setUserStatus = (status) => ({ type: SET_USER_STATUS, status: status })
+
 //=========== Thunk Creators ============================================================>
 
-export const setUserTC = (id) => {
+export const getUserStatus = (id) => (dispatch) => {
+        profileAPI.getStatus(id).then( response => {
+            debugger
+            dispatch(setUserStatus(response));
+        })
+    }
+
+
+export const updateUserStatus = (status) => (dispatch) => {
+        profileAPI.updateStatus(status).then(response => {
+            debugger
+            if (response.data.resultCode === 0) {
+                dispatch(setUserStatus(status));
+            }
+        })
+    }
+
+
+export const setUserTC = (userId) => {
 	return (dispatch) => {
-		let userId = id;
-		if (!userId) {
-			userId = 13089;
-		}
 		profileAPI.setUser(userId).then
 			(data => {
 				dispatch(setUserProfile(data));

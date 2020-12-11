@@ -1,9 +1,10 @@
 
-import classes from './ProfileInfo.module.css'
-import avatar from '../../../../assets/images/img.jpeg'
-import Preloader from '../../../Common/Preloader/Preloader'
-import yesImg from '../../../../assets/images/yes.png'
-import noImg from '../../../../assets/images/no.png'
+import classes from './ProfileInfo.module.css';
+import avatar from '../../../../assets/images/img.jpeg';
+import Preloader from '../../../Common/Preloader/Preloader';
+import yesImg from '../../../../assets/images/yes.png';
+import noImg from '../../../../assets/images/no.png';
+import ProfileStatus from './ProfileStatus';
 
 
 const ProfileInfo = (props) => {
@@ -19,6 +20,10 @@ const ProfileInfo = (props) => {
                 <div className={classes.info__header}>
                     <div className={classes.info__header__item}><img src={props.profile.photos.small != null ? props.profile.photos.small : avatar } alt="ava"/></div>
                     <div className={classes.info__header__item}>{props.profile.aboutMe}</div>
+                    <div className={classes.info__header__item}>
+                        <ProfileStatus updateUserStatus = {props.updateUserStatus}
+                            status = {props.status}/>
+                    </div>
                 </div>
                 <div className={classes.jobInfo}>
                     <div className={classes.jobInfo__item}>Looking 4 a job: </div>
