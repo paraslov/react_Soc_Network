@@ -33,7 +33,6 @@ export const profileAPI = {
 
     getStatus(userId) {
         return instance.get(`profile/status/` + userId).then(response => {
-            debugger;
             return response.data});
     },
 
@@ -45,6 +44,12 @@ export const profileAPI = {
 export const headerAPI = {
     loginUser () {
         return instance.get(`auth/me`).then(response => {return response.data});
+    },
+    userAuthorization (formData) {
+        return instance.post(`auth/login`, {
+            email: formData.email,
+            password: formData.password,
+            rememberMe: formData.rememberMe }).then(response => {return response.data});
     }
 }
 

@@ -50,5 +50,21 @@ export const userAuthorization = () => {
     }
 } 
 
+export const userLogginIn = (formData) => (dispatch) => {
+    headerAPI.userAuthorization(formData).then(data => {
+        if (data.resultCode === 0){
+            headerAPI.loginUser().then
+            (data => {
+                if (data.resultCode === 0) {
+                    let { id, email, login } = data.data;
+                    dispatch(setAuthUsersData(id, email, login));
+                }
+            })
+            alert('You were successfully logged in!')
+        }
+
+    })
+}
+
 
 export default authReducer;

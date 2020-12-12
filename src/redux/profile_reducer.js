@@ -75,7 +75,6 @@ export const setUserStatus = (status) => ({ type: SET_USER_STATUS, status: statu
 
 export const getUserStatus = (id) => (dispatch) => {
         profileAPI.getStatus(id).then( response => {
-            debugger
             dispatch(setUserStatus(response));
         })
     }
@@ -83,7 +82,6 @@ export const getUserStatus = (id) => (dispatch) => {
 
 export const updateUserStatus = (status) => (dispatch) => {
         profileAPI.updateStatus(status).then(response => {
-            debugger
             if (response.data.resultCode === 0) {
                 dispatch(setUserStatus(status));
             }
