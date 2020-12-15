@@ -4,7 +4,7 @@ import { profileAPI } from "../api/api";
 // ================= Action creator Constants ======================================>
 
 const ADD_POST = 'ADD-POST';
-const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
+// const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
 const SET_USER_STATUS = 'SET_USER_STATUS';
 
@@ -18,7 +18,7 @@ let initialState = {
             { message: "Props was succesfully integrated!", likeCounter: '66', id: '4' }
 		],
 		profile: '',
-        newPostText: '',
+        // newPostText: '',
         status: '',
 }
 
@@ -30,18 +30,18 @@ const profileReducer = (state = initialState, action) => {
 			return {
 				...state,
 				postsData: [...state.postsData, {
-					message: state.newPostText,
+					message: action.newText,
 					likeCounter: 0,
 					id: state.postsData.length + 1,
 				}],
 				newPostText: ''
 			}
 
-		case UPDATE_NEW_POST_TEXT:
-			return {
-				...state,
-				newPostText: action.newText
-			}
+		// case UPDATE_NEW_POST_TEXT:
+		// 	return {
+		// 		...state,
+		// 		newPostText: action.newText
+		// 	}
 
 		case SET_USER_PROFILE:
 			return {
@@ -63,9 +63,9 @@ const profileReducer = (state = initialState, action) => {
 
 //====== Action Creators =============================================
 
-export const addPostActionCreator = () => ({ type: ADD_POST })
+export const addPostActionCreator = (text) => ({ type: ADD_POST, newText: text})
 
-export const updateNewPostTextActionCreator = (text) => ({ type: UPDATE_NEW_POST_TEXT, newText: text })
+// export const updateNewPostTextActionCreator = (text) => ({ type: UPDATE_NEW_POST_TEXT, newText: text })
 
 export const setUserProfile = (profile) => ({ type: SET_USER_PROFILE, profile })
 
