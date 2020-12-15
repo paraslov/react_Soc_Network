@@ -4,18 +4,24 @@ import { userLogginIn } from './../../redux/auth_reducer';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { Redirect } from 'react-router-dom';
+import { Input } from '../Common/FormsControls/FormsControls';
+import { fieldRequired, maxLengthCreator } from './../../utils/validators/validators';
+
+const maxLength10 = maxLengthCreator(10);
 
 const LoginForm = (props) => {
 	return (
 		<form onSubmit={props.handleSubmit}>
             <div>
-                <Field placeholder={'email'} name={'email'} component = {'input'}/>
+                <Field placeholder={'email'} name={'email'} component = {Input}
+                validate={[fieldRequired, maxLength10]}/>
             </div>
             <div>
-                <Field  placeholder={'password'} name={'password'} component = {'input'}/>
+                <Field  placeholder={'password'} name={'password'} component = {Input}
+                validate={[fieldRequired, maxLength10]}/>
             </div>
             <div>
-                <Field type={"checkbox"} name={'rememberMe'} component = {'input'}/>remember me
+                <Field type={"checkbox"} name={'rememberMe'} component = {Input}/>remember me
             </div>
             <div>
                 <button>Sign in</button>
