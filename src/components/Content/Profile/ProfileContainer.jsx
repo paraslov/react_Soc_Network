@@ -7,6 +7,8 @@ import { Redirect } from 'react-router-dom';
 import { withAuthRedirect } from '../../../hoc/withAuthRedirect'
 import { compose } from 'redux';
 import { getUserStatus, updateUserStatus } from './../../../redux/profile_reducer';
+import { getIsAuth, getProfile, getProfileStatus } from './../../../redux/selectors/profile_selectors';
+import { getAuthorizedUserId } from './../../../redux/selectors/profile_selectors';
 
 
 
@@ -41,10 +43,10 @@ class ProfileContainer extends React.Component {
 
 let myStateToProps = (state) => {
     return {
-        profile: state.profilePage.profile,
-        status: state.profilePage.status,
-        authorizedUserId: state.auth.id,
-        isAuth: state.auth.isAuth,
+        profile: getProfile(state),
+        status: getProfileStatus(state),
+        authorizedUserId: getAuthorizedUserId(state),
+        isAuth: getIsAuth(state),
     }
 }
 

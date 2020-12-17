@@ -4,7 +4,8 @@ import UsersList from './UsersList';
 import Preloader from '../../../Common/Preloader/Preloader';
 import { userUnfollow, userFollow, getUsers} from './../../../../redux/users_reducer';
 import { compose } from 'redux';
-import { getTotalUsersCount, getUsersCurrentPage, getUsersFollowingInProgress, getUsersIsFetching, getUsersPageSize, getUsersState } from '../../../../redux/users_selectors';
+import { getTotalUsersCount, getUsersCurrentPage, getUsersFollowingInProgress, getUsersIsFetching, getUsersPageSize} from '../../../../redux/selectors/users_selectors';
+import { getUsersSelector } from '../../../../redux/selectors/users_selectors';
 
 class UsersListContainer extends React.Component {
 
@@ -53,7 +54,7 @@ class UsersListContainer extends React.Component {
 
 let meStateToProps = (state) => {
     return {
-        users: getUsersState(state),
+        users: getUsersSelector(state),
         pageSize: getUsersPageSize(state),
         totalUsersCount: getTotalUsersCount(state),
         currentPage: getUsersCurrentPage(state),
