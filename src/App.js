@@ -11,15 +11,28 @@ import HeaderContainer from './components/Header/HeaderContainer';
 import Navbar from './components/Navbar/Nav';
 import LoginPage from './components/Login/Login';
 import SidebarConteiner from './components/Sidebar/SidebarConteiner';
+import { initializeApp } from './redux/app_reducer';
+import { connect } from 'react-redux';
+import Preloader from './components/Common/Preloader/Preloader';
 
 // changes made in notebook
 // changes made on big bada boom computer
 
 
 
-const App = () => {
-    
-    return (
+class App extends React.Component  {
+
+    componentDidMount() {
+        this.props.initializeApp();
+    }
+
+    render = () => {
+
+            if (!this.props.initialized) {
+                return <Preloader/>
+            }
+
+            return (
             <div className='app-wrapper'>
                 <HeaderContainer />
                 <div className='app-wrapper__sidebar'>
@@ -46,6 +59,14 @@ const App = () => {
                 </div>
             </div>       
     );
+    }
+
 }
 
-export default App;
+const mapStateToProps = (state) => {
+    return ({
+        initialized: state.app.initialized,
+    })
+}
+
+export default connect(mapStateToProps, {initializeApp})(App);

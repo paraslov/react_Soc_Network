@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import UsersList from './UsersList';
 import Preloader from '../../../Common/Preloader/Preloader';
 import { userUnfollow, userFollow, getUsers} from './../../../../redux/users_reducer';
-import { withAuthRedirect } from '../../../../hoc/withAuthRedirect';
 import { compose } from 'redux';
+import { getTotalUsersCount, getUsersCurrentPage, getUsersFollowingInProgress, getUsersIsFetching, getUsersPageSize, getUsersState } from '../../../../redux/users_selectors';
 
 class UsersListContainer extends React.Component {
 
@@ -40,14 +40,25 @@ class UsersListContainer extends React.Component {
     }
 }
 
+// let meStateToProps = (state) => {
+//     return {
+//         users: state.usersPage.users,
+//         pageSize: state.usersPage.pageSize,
+//         totalUsersCount: state.usersPage.totalUsersCount,
+//         currentPage: state.usersPage.currentPage,
+//         isFetching: state.usersPage.isFetching,
+//         followingInProgress: state.usersPage.followingInProgress,
+//     }
+// }
+
 let meStateToProps = (state) => {
     return {
-        users: state.usersPage.users,
-        pageSize: state.usersPage.pageSize,
-        totalUsersCount: state.usersPage.totalUsersCount,
-        currentPage: state.usersPage.currentPage,
-        isFetching: state.usersPage.isFetching,
-        followingInProgress: state.usersPage.followingInProgress,
+        users: getUsersState(state),
+        pageSize: getUsersPageSize(state),
+        totalUsersCount: getTotalUsersCount(state),
+        currentPage: getUsersCurrentPage(state),
+        isFetching: getUsersIsFetching(state),
+        followingInProgress: getUsersFollowingInProgress(state),
     }
 }
 
@@ -79,5 +90,4 @@ export default compose(
         // Thunk creators:
         getUsers, userUnfollow, userFollow,
     }),
-    withAuthRedirect
 )(UsersListContainer);
