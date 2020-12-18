@@ -5,6 +5,7 @@ import Preloader from '../../../Common/Preloader/Preloader';
 import yesImg from '../../../../assets/images/yes.png';
 import noImg from '../../../../assets/images/no.png';
 import ProfileStatus from './ProfileStatus';
+import ProfileStatusWithHooks from './ProfileStatusWithHooks';
 
 
 const ProfileInfo = (props) => {
@@ -21,7 +22,7 @@ const ProfileInfo = (props) => {
                     <div className={classes.info__header__item}><img src={props.profile.photos.small != null ? props.profile.photos.small : avatar } alt="ava"/></div>
                     <div className={classes.info__header__item}>{props.profile.aboutMe}</div>
                     <div className={classes.info__header__item}>
-                        <ProfileStatus updateUserStatus = {props.updateUserStatus}
+                        <ProfileStatusWithHooks updateUserStatus = {props.updateUserStatus}
                             status = {props.status}/>
                     </div>
                 </div>
