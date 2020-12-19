@@ -24,7 +24,9 @@ const MyPostsForm = (props) => {
 const MyPostsReduxForm = reduxForm({form: 'myPosts'})(MyPostsForm);
 
 
-const MyPosts = (props) => {
+const MyPosts = React.memo((props) => {
+
+    console.log('my post render')
 
     const onMyPostsFormSubmit = (formData) => {
         props.addPost(formData.newPostText);
@@ -47,6 +49,6 @@ const MyPosts = (props) => {
         </div>
 
     )
-}
+});
 
 export default MyPosts;
