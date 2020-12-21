@@ -10,18 +10,13 @@ import { getUsersSelector } from '../../../../redux/selectors/users_selectors';
 class UsersListContainer extends React.Component {
 
     componentDidMount() {
-        this.props.getUsers(this.props.currentPage, this.props.pageSize);
+        const {currentPage, pageSize} = this.props;
+        this.props.getUsers(currentPage, pageSize);
     }
 
     onPageChanged = (pageNumber) => {
-        this.props.getUsers(pageNumber, this.props.pageSize);
-        // this.props.setCurrentPage(pageNumber);
-        // this.props.toggleIsFetching(true);
-        // usersAPI.getUsers(pageNumber, this.props.pageSize).then
-        //     (data => {
-        //         this.props.toggleIsFetching(false);
-        //         this.props.setUsers(data.items);
-        //     });
+        const {pageSize} = this.props;
+        this.props.getUsers(pageNumber, pageSize);
     }
 
     render() {
@@ -41,18 +36,7 @@ class UsersListContainer extends React.Component {
     }
 }
 
-// let meStateToProps = (state) => {
-//     return {
-//         users: state.usersPage.users,
-//         pageSize: state.usersPage.pageSize,
-//         totalUsersCount: state.usersPage.totalUsersCount,
-//         currentPage: state.usersPage.currentPage,
-//         isFetching: state.usersPage.isFetching,
-//         followingInProgress: state.usersPage.followingInProgress,
-//     }
-// }
-
-let meStateToProps = (state) => {
+let mapStateToProps = (state) => {
     return {
         users: getUsersSelector(state),
         pageSize: getUsersPageSize(state),
@@ -63,31 +47,8 @@ let meStateToProps = (state) => {
     }
 }
 
-// let mapDispatchToProps = (dispatch) => {
-//     return {
-//         follow: (userId) => {
-//             dispatch(followAC(userId));
-//         },
-//         unfollow: (userId) => {
-//             dispatch(unfollowAC(userId));
-//         },
-//         setUsers: (users) => {
-//             dispatch(setUsersAC(users));
-//         },
-//         setCurrentPage: (currentPage) => {
-//             dispatch(setCurrentPageAC(currentPage));
-//         },
-//         setTotalUsersCount: (totalCount) => {
-//             dispatch(setTotalUsersCountAC(totalCount))
-//         },
-//         toggleIsFetching: (isFetching) => {
-//             dispatch(toggleIsFetchingAC(isFetching))
-//         }
-//     }
-// }
-
 export default compose(
-    connect(meStateToProps, {
+    connect(mapStateToProps, {
         // Thunk creators:
         getUsers, userUnfollow, userFollow,
     }),

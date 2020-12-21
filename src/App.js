@@ -15,10 +15,6 @@ import { initializeApp } from './redux/app_reducer';
 import { connect } from 'react-redux';
 import Preloader from './components/Common/Preloader/Preloader';
 
-// changes made in notebook
-// changes made on big bada boom computer
-
-
 
 class App extends React.Component  {
 

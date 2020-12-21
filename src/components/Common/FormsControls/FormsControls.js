@@ -1,12 +1,13 @@
 import classes from './FormsControls.module.css'
+import { Field } from 'redux-form';
 
-export const Textarea = ({input, meta, ...props}) => {
+export const Textarea = ({input, meta: {touched, error}, ...props}) => {
 
-    const hasError = meta.touched && meta.error;
+    const hasError = touched && error;
     return (
         <div className={hasError ? classes.error : ''}>
             <textarea {...input} {...props} /> <br></br>
-            {hasError && <span>{meta.error}</span>}
+            {hasError && <span>{error}</span>}
         </div>
     )
 }
@@ -21,3 +22,10 @@ export const Input = ({input, meta, ...props}) => {
         </div>
     )
 } 
+
+export const myCreateField = (placeholder, name, component, validators, props = {}, text = '') => {
+    return             <div>
+    <Field placeholder={placeholder} name={name} component = {component}
+    validate={validators}/> {text}
+</div>
+}

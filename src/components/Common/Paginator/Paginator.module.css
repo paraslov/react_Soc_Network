@@ -1,0 +1,12 @@
+.pages {
+	color: #555;
+}
+
+.pages span {
+	cursor: pointer;
+	padding: 5px;
+}
+
+.selectedPage {
+	font-weight: 700;
+}

@@ -7,16 +7,22 @@ import { Input } from '../Common/FormsControls/FormsControls';
 import { fieldRequired, maxLengthCreator } from './../../utils/validators/validators';
 import { Redirect } from 'react-router-dom';
 import classes from '../Common/FormsControls/FormsControls.module.css';
+import { myCreateField } from './../Common/FormsControls/FormsControls';
 
 const maxLength35 = maxLengthCreator(35);
 
-const LoginForm = (props) => {
+const LoginForm = ({handleSubmit, error}) => {
 	return (
-		<form onSubmit={props.handleSubmit}>
-            <div>
+		<form onSubmit={handleSubmit}>
+
+            {/* example of creating Field with help of FormsControls.js function myCreateFeild */}
+            {myCreateField('e-mail', 'email', Input, [fieldRequired, maxLength35] )}
+            
+            {/* <div>
                 <Field placeholder={'email'} name={'email'} component = {Input}
                 validate={[fieldRequired, maxLength35]}/>
-            </div>
+            </div> (old version)*/}
+
             <div>
                 <Field  placeholder={'password'} name={'password'} component = {Input}
                 validate={[fieldRequired, maxLength35]} type='password'/>
@@ -24,8 +30,8 @@ const LoginForm = (props) => {
             <div>
                 <Field type={"checkbox"} name={'rememberMe'} component = {Input}/>remember me
             </div>
-            {props.error && <div className={classes.errorOnSubmit}>
-                Error acuired: {props.error}
+            {error && <div className={classes.errorOnSubmit}>
+                Error acuired: {error}
             </div>}
             <div>
                 <button>Sign in</button>

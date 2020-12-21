@@ -4,7 +4,6 @@ import avatar from '../../../../assets/images/img.jpeg';
 import Preloader from '../../../Common/Preloader/Preloader';
 import yesImg from '../../../../assets/images/yes.png';
 import noImg from '../../../../assets/images/no.png';
-import ProfileStatus from './ProfileStatus';
 import ProfileStatusWithHooks from './ProfileStatusWithHooks';
 
 

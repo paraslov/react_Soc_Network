@@ -8,7 +8,6 @@ import appReducer from './app_reducer';
 
 const { createStore, combineReducers, applyMiddleware } = require("redux");
 
-
 let reducers = combineReducers({
     profilePage: profileReducer,
     messagesPage: messagesReducer,
