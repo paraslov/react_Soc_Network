@@ -4,7 +4,9 @@
 
 .pages span {
 	cursor: pointer;
-	padding: 5px;
+    padding: 5px;
+    margin: 3px;
+    border: 1px solid #666;
 }
 
 .selectedPage {

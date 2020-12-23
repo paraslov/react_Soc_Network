@@ -16,7 +16,8 @@ const TOGGLE_FOLLOWING_PROGRESS = 'joyme/users_reducer/TOGGLE_FOLLOWING_PROGRESS
 
 let initialState = {
     users: [],
-    pageSize: 5,
+    pageSize: 10,
+    portionSize: 10,
     totalUsersCount: 0,
     currentPage: 1,
     isFetching: true,

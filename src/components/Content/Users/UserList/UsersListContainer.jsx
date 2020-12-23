@@ -4,7 +4,7 @@ import UsersList from './UsersList';
 import Preloader from '../../../Common/Preloader/Preloader';
 import { userUnfollow, userFollow, getUsers} from './../../../../redux/users_reducer';
 import { compose } from 'redux';
-import { getTotalUsersCount, getUsersCurrentPage, getUsersFollowingInProgress, getUsersIsFetching, getUsersPageSize} from '../../../../redux/selectors/users_selectors';
+import { getPortionSize, getTotalUsersCount, getUsersCurrentPage, getUsersFollowingInProgress, getUsersIsFetching, getUsersPageSize} from '../../../../redux/selectors/users_selectors';
 import { getUsersSelector } from '../../../../redux/selectors/users_selectors';
 
 class UsersListContainer extends React.Component {
@@ -30,6 +30,7 @@ class UsersListContainer extends React.Component {
                 pageSize={this.props.pageSize} followingInProgress={this.props.followingInProgress}
                 onPageChanged={this.onPageChanged} 
                 userUnfollow={this.props.userUnfollow} userFollow={this.props.userFollow}
+                portionSize = {this.props.portionSize}
             />
         </div>
         </>
@@ -44,6 +45,7 @@ let mapStateToProps = (state) => {
         currentPage: getUsersCurrentPage(state),
         isFetching: getUsersIsFetching(state),
         followingInProgress: getUsersFollowingInProgress(state),
+        portionSize: getPortionSize(state),
     }
 }
 
