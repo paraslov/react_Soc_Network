@@ -9,6 +9,12 @@ import ProfileStatusWithHooks from './ProfileStatusWithHooks';
 
 const ProfileInfo = (props) => {
 
+    const onMainPhotoSelected = (e) => {
+        if (e.target.files.length) {
+            props.savePhoto(e.target.files[0]);
+        }
+    }
+
     if (!props.profile) {
         return <Preloader/>
     }
@@ -18,12 +24,15 @@ const ProfileInfo = (props) => {
             <div className={classes.info}>
                 <div className={classes.fullName}>{props.profile.fullName}</div>
                 <div className={classes.info__header}>
-                    <div className={classes.info__header__item}><img src={props.profile.photos.small != null ? props.profile.photos.small : avatar } alt="ava"/></div>
+                    <div className={classes.info__header__item}><img src={props.profile.photos.small || avatar } alt="ava"/></div>
                     <div className={classes.info__header__item}>{props.profile.aboutMe}</div>
                     <div className={classes.info__header__item}>
                         <ProfileStatusWithHooks updateUserStatus = {props.updateUserStatus}
                             status = {props.status}/>
                     </div>
+                </div>
+                <div>
+                    {props.isOwner && <input type='file' onChange={onMainPhotoSelected} />}
                 </div>
                 <div className={classes.jobInfo}>
                     <div className={classes.jobInfo__item}>Looking 4 a job: </div>

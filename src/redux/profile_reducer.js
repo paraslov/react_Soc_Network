@@ -8,6 +8,7 @@ const POST_DELETE = 'joyme/profile_reducer/POST_DELETE';
 // const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 const SET_USER_PROFILE = 'joyme/profile_reducer/SET_USER_PROFILE';
 const SET_USER_STATUS = 'joyme/profile_reducer/SET_USER_STATUS';
+const SET_USER_PHOTO_SUCCESS = 'joyme/profile_reducer/SET_USER_PHOTO_SUCCESS';
 
 //================== Initial State =================================================>
 
@@ -61,6 +62,14 @@ const profileReducer = (state = initialState, action) => {
                 status: action.status
             }
 
+        case SET_USER_PHOTO_SUCCESS:
+            return {
+                ...state,
+                profile: {...state.profile, photos: action.photos }
+            }
+
+
+
         default:
             return state;
     }
@@ -69,15 +78,17 @@ const profileReducer = (state = initialState, action) => {
 
 //====== Action Creators =============================================
 
-export const addPostActionCreator = (text) => ({ type: ADD_POST, newText: text })
+export const addPostActionCreator = (text) => ({ type: ADD_POST, newText: text });
 
-export const deletePost = (postId) => ({ type: POST_DELETE, postId }) // id: id       actually
+export const deletePost = (postId) => ({ type: POST_DELETE, postId }); // id: id       actually
 
 // export const updateNewPostTextActionCreator = (text) => ({ type: UPDATE_NEW_POST_TEXT, newText: text })
 
-export const setUserProfile = (profile) => ({ type: SET_USER_PROFILE, profile })
+export const setUserProfile = (profile) => ({ type: SET_USER_PROFILE, profile });
 
-export const setUserStatus = (status) => ({ type: SET_USER_STATUS, status: status })
+export const setUserStatus = (status) => ({ type: SET_USER_STATUS, status: status });
+
+export const setUserPhotoSuccess = (photos) => ({ type: SET_USER_PHOTO_SUCCESS, photos });
 
 //=========== Thunk Creators ============================================================>
 
@@ -87,15 +98,22 @@ export const getUserStatus = (id) => async (dispatch) => {
 }
 
 export const updateUserStatus = (status) => async (dispatch) => {
-    const response = await profileAPI.updateStatus(status)
+    const response = await profileAPI.updateStatus(status);
     if (response.data.resultCode === 0) {
         dispatch(setUserStatus(status));
     }
 }
 
+export const savePhoto = (file) => async (dispatch) => {
+    const data = await profileAPI.savePhoto(file);
+    if(data.resultCode === 0){
+        dispatch(setUserPhotoSuccess(data.data.photos));
+    }
+}
+
 export const setUserTC = (userId) => {
     return async (dispatch) => {
-        const data = await profileAPI.setUser(userId)
+        const data = await profileAPI.setUser(userId);
         dispatch(setUserProfile(data));
     }
 }
