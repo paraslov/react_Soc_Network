@@ -2,6 +2,19 @@
     margin-bottom: 15px;
 }
 
+.editZone {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.lable {
+    font-size: 0.8em;
+    padding: 3px;
+    border: 1px solid #555;
+    cursor: pointer;
+}
+
 .header__image {
     height: 60px;
     width: 100%;
@@ -16,6 +29,10 @@
     margin-bottom: 20px;
 }
 
+.btn {
+    margin-left: 50px;
+}
+
 .info__header {
     display: flex;
     align-items: center;
@@ -25,12 +42,18 @@
 .info__header__item {
     color: #555;
     margin-right: 40px;
+    margin-bottom: 10px;
 }
 
 .jobInfo {
     display: flex;
     align-items: center;
     margin-bottom: 20px;
+}
+
+.editMode {
+    flex-direction: column;
+    align-items: start;
 }
 
 .jobInfo img {
@@ -44,7 +67,20 @@
     margin-right: 20px;
 }
 
+.jobInfo__item textarea {
+    width: 250px;
+    height: 50px;
+}
+
+.contacts {
+    margin-left: 15px;
+}
+
 .contacts__item {
     color: #555;
     margin-bottom: 7px;
+}
+
+.contacts__item_null {
+    display: none;
 }

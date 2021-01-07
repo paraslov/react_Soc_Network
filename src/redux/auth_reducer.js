@@ -1,5 +1,6 @@
 import { headerAPI } from "../api/api";
 import { stopSubmit } from "redux-form";
+import { setUserTC } from './profile_reducer';
 
 
 // ================= Action creator Constants ======================================>

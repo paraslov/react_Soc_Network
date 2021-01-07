@@ -4,8 +4,8 @@ import Profile from './Profile';
 import { setUserTC } from '../../../redux/profile_reducer';
 import { withRouter } from 'react-router-dom';
 import { compose } from 'redux';
-import { getUserStatus, updateUserStatus, savePhoto } from './../../../redux/profile_reducer';
-import { getIsAuth, getProfile, getProfileStatus, getProfilePhotoUrl } from './../../../redux/selectors/profile_selectors';
+import { getUserStatus, updateUserStatus, savePhoto, saveProfile } from './../../../redux/profile_reducer';
+import { getIsAuth, getProfile, getProfileStatus, getProfilePhotoUrl, getProfileChange } from './../../../redux/selectors/profile_selectors';
 import { getAuthorizedUserId } from './../../../redux/selectors/profile_selectors';
 
 
@@ -39,6 +39,7 @@ class ProfileContainer extends React.Component {
         return (
             <div>
                 <Profile {...this.props} profile = {this.props.profile} 
+                saveProfile = {this.props.saveProfile} profileChange = {this.props.profileChange}
                 isOwner = {!this.props.match.params.userId} savePhoto = {this.props.savePhoto}
                 status = {this.props.status} updateUserStatus={this.props.updateUserStatus}/>
             </div >
@@ -54,13 +55,14 @@ let myStateToProps = (state) => {
         status: getProfileStatus(state),
         authorizedUserId: getAuthorizedUserId(state),
         isAuth: getIsAuth(state),
+        profileChange: getProfileChange(state),
     }
 }
 
 
 export default compose(
     connect(myStateToProps, { setUserProfile: setUserTC,
-    getUserStatus, updateUserStatus, savePhoto }),
+    getUserStatus, updateUserStatus, savePhoto, saveProfile }),
     withRouter,
     // withAuthRedirect
 )(ProfileContainer);

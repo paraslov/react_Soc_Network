@@ -1,5 +1,4 @@
 import * as axios from 'axios';
-import { savePhoto } from '../redux/profile_reducer';
 
 const instance = axios.create({
     withCredentials: true,
@@ -39,6 +38,10 @@ export const profileAPI = {
 
     updateStatus(status) {
         return instance.put(`profile/status`, { status: status });
+    },
+
+    saveProfile(profile) {
+        return instance.put(`profile`, profile).then(response => response.data);
     },
 
     savePhoto(file) {

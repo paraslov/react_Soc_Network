@@ -1,4 +1,5 @@
 import { profileAPI } from "../api/api";
+import { stopSubmit } from 'redux-form';
 
 
 // ================= Action creator Constants ======================================>
@@ -9,6 +10,7 @@ const POST_DELETE = 'joyme/profile_reducer/POST_DELETE';
 const SET_USER_PROFILE = 'joyme/profile_reducer/SET_USER_PROFILE';
 const SET_USER_STATUS = 'joyme/profile_reducer/SET_USER_STATUS';
 const SET_USER_PHOTO_SUCCESS = 'joyme/profile_reducer/SET_USER_PHOTO_SUCCESS';
+const SET_PROFILE_CHANGE_RESULT = 'joyme/profile_reducer/SET_PROFILE_CHANGE_RESULT';
 
 //================== Initial State =================================================>
 
@@ -22,6 +24,7 @@ let initialState = {
     profile: '',
     // newPostText: '',
     status: '',
+    profileChange: null,
 }
 
 //================== Reducer =========================================================>
@@ -62,13 +65,17 @@ const profileReducer = (state = initialState, action) => {
                 status: action.status
             }
 
+        case SET_PROFILE_CHANGE_RESULT:
+            return {
+                ...state,
+                profileChange: action.profileChange
+            }
+
         case SET_USER_PHOTO_SUCCESS:
             return {
                 ...state,
                 profile: {...state.profile, photos: action.photos }
             }
-
-
 
         default:
             return state;
@@ -90,6 +97,8 @@ export const setUserStatus = (status) => ({ type: SET_USER_STATUS, status: statu
 
 export const setUserPhotoSuccess = (photos) => ({ type: SET_USER_PHOTO_SUCCESS, photos });
 
+export const setProfileChange = (profileChange) => ({ type: SET_PROFILE_CHANGE_RESULT, profileChange });
+
 //=========== Thunk Creators ============================================================>
 
 export const getUserStatus = (id) => async (dispatch) => {
@@ -108,6 +117,21 @@ export const savePhoto = (file) => async (dispatch) => {
     const data = await profileAPI.savePhoto(file);
     if(data.resultCode === 0){
         dispatch(setUserPhotoSuccess(data.data.photos));
+    }
+}
+
+export const saveProfile = (profile) => async (dispatch, getState) => {
+    const id = getState().auth.id;
+    const data = await profileAPI.saveProfile(profile);
+    if(data.resultCode === 0){
+        alert('Profile changes applied!');
+        dispatch(setUserTC(id));
+        dispatch(setProfileChange('success'));
+        debugger
+    } else {
+        dispatch(stopSubmit('edit-profile', { _error: data.messages[0] }));
+        dispatch(setProfileChange('error'));
+        return Promise.reject(data.messages[0]);
     }
 }
 

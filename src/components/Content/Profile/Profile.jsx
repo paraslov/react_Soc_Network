@@ -2,11 +2,12 @@
 import ProfileInfo from './ProfileInfo/ProfileInfo';
 import MyPostsContainer from './MyPosts/MyPostsContainer';
 
-const Profile = ({ savePhoto, isOwner, profile, status, updateUserStatus}) => {
+const Profile = ({ profileChange, saveProfile, savePhoto, isOwner, profile, status, updateUserStatus}) => {
     return (
         
         <div>
-            <ProfileInfo isOwner = {isOwner} profile = {profile} status = {status} 
+            <ProfileInfo saveProfile={saveProfile} isOwner = {isOwner} 
+                profile = {profile} status = {status} profileChange = {profileChange}
                 updateUserStatus = {updateUserStatus} savePhoto = {savePhoto} />
             <MyPostsContainer />
         </div >

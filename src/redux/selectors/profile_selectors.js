@@ -6,6 +6,10 @@ export const getProfileStatus = (state) => {
     return state.profilePage.status;
 } 
 
+export const getProfileChange = (state) => {
+    return state.profilePage.profileChange;
+} 
+
 export const getAuthorizedUserId = (state) => {
     return state.auth.id;
 }
