@@ -11,7 +11,7 @@ import { myCreateField } from './../Common/FormsControls/FormsControls';
 
 const maxLength35 = maxLengthCreator(35);
 
-const LoginForm = ({handleSubmit, error}) => {
+const LoginForm = ({handleSubmit, error, captchaURL}) => {
 	return (
 		<form onSubmit={handleSubmit}>
 
@@ -33,6 +33,9 @@ const LoginForm = ({handleSubmit, error}) => {
             {error && <div className={classes.errorOnSubmit}>
                 Error acuired: {error}
             </div>}
+            {captchaURL && <img src = {captchaURL} alt = 'captcha'/>}
+            {captchaURL && myCreateField('input symbols from image', 
+                'captcha', Input, [fieldRequired])}
             <div>
                 <button>Sign in</button>
             </div>
@@ -58,7 +61,7 @@ const Login = (props) => {
     return (
         <div>
             <h1>Login</h1>
-            <LoginReduxForm onSubmit={onFormSubmit}/>
+            <LoginReduxForm onSubmit={onFormSubmit} captchaURL = {props.captchaURL}/>
         </div>
     
     )
@@ -66,7 +69,8 @@ const Login = (props) => {
 
 const mapStateToProps = (state) => {
     return (
-        {isAuth: state.auth.isAuth}
+        {isAuth: state.auth.isAuth,
+        captchaURL: state.auth.captchaURL}
     )
 }
 

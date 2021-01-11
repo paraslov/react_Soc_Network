@@ -1,11 +1,11 @@
-import { headerAPI } from "../api/api";
+import { headerAPI, securityAPI } from "../api/api";
 import { stopSubmit } from "redux-form";
-import { setUserTC } from './profile_reducer';
 
 
 // ================= Action creator Constants ======================================>
 
 const SET_USERS_DATA = 'joyme/auth/SET_USERS_DATA';
+const GET_CAPTCHA_URL = 'joyme/auth/GET_CAPTCHA_URL';
 
 //================== Initial State =================================================>
 
@@ -14,6 +14,7 @@ let initialState = {
     email: null,
     login: null,
     isAuth: false,
+    captchaURL: null,
 };
 
 //================== Reducers =========================================================>
@@ -24,6 +25,11 @@ const authReducer = (state = initialState, action) => {
             return {
                 ...state,
                 ...action.payload,
+            }
+        case GET_CAPTCHA_URL:
+            return {
+                ...state,
+                captchaURL: action.captchaURL,
             }
 
         default:
@@ -36,6 +42,8 @@ const authReducer = (state = initialState, action) => {
 
 export const setAuthUsersData = (userId, email, login, isAuth) =>
     ({ type: SET_USERS_DATA, payload: { id: userId, email, login, isAuth } })
+
+export const setCaptchaURL = (captchaURL) => ({type: GET_CAPTCHA_URL, captchaURL})
 
 //=========== Thunk Creators ============================================================>
 
@@ -59,6 +67,9 @@ export const userLogginIn = (formData) => async (dispatch) => {
             })
         alert('You were successfully logged in!')
     } else {
+        if (data.resultCode === 10){
+            dispatch(getCaptchaURL());
+        }
         let errorMessage = data.messages.length > 0 ? data.messages[0] : 'something wrong';
         dispatch(stopSubmit('login', { _error: errorMessage }));
     }
@@ -74,6 +85,12 @@ export const userLogout = () => async (dispatch) => {
                 }
             })
     }
+}
+
+export const getCaptchaURL = () => async (dispatch) => {
+    const data = await securityAPI.captcha();
+    const captchaURL = data.url;
+    dispatch(setCaptchaURL(captchaURL));
 }
 
 
