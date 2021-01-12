@@ -1,25 +1,44 @@
 import { headerAPI, securityAPI } from "../api/api";
 import { stopSubmit } from "redux-form";
 
-
 // ================= Action creator Constants ======================================>
 
-const SET_USERS_DATA = 'joyme/auth/SET_USERS_DATA';
-const GET_CAPTCHA_URL = 'joyme/auth/GET_CAPTCHA_URL';
+const SET_USERS_DATA = 'para_slov/auth/SET_USERS_DATA';
+const GET_CAPTCHA_URL = 'para_slov/auth/GET_CAPTCHA_URL';
 
+// ================= Action creator Types ======================================>
+
+type userPayloadType = {
+    id: number
+    login: string
+    email: string
+    isAuth: boolean
+}
+
+type setUserDataActionType = {
+    type: typeof SET_USERS_DATA
+    payload: Array<userPayloadType>
+}
+
+type setCaptchaURLActionType = {
+    type: typeof GET_CAPTCHA_URL;
+    captchaURL: string;
+}
 //================== Initial State =================================================>
 
 let initialState = {
-    id: null,
-    email: null,
-    login: null,
-    isAuth: false,
-    captchaURL: null,
+    id: null as number | null,
+    email: null as string | null,
+    login: null as string | null,
+    isAuth: false as boolean,
+    captchaURL: null as string | null,
 };
+
+export type authInitialStateType = typeof initialState;
 
 //================== Reducers =========================================================>
 
-const authReducer = (state = initialState, action) => {
+const authReducer = (state = initialState, action: setUserDataActionType | setCaptchaURLActionType) => {
     switch (action.type) {
         case SET_USERS_DATA:
             return {
@@ -40,10 +59,10 @@ const authReducer = (state = initialState, action) => {
 
 //====== Action Creators =============================================
 
-export const setAuthUsersData = (userId, email, login, isAuth) =>
+export const setAuthUsersData = (userId:number, email:string, login:string, isAuth:boolean) =>
     ({ type: SET_USERS_DATA, payload: { id: userId, email, login, isAuth } })
 
-export const setCaptchaURL = (captchaURL) => ({type: GET_CAPTCHA_URL, captchaURL})
+export const setCaptchaURL = (captchaURL:string) => ({type: GET_CAPTCHA_URL, captchaURL})
 
 //=========== Thunk Creators ============================================================>
 
