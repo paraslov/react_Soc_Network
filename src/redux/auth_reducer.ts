@@ -32,6 +32,7 @@ const authReducer = (state = initialState, action: any): AuthInitialStateType =>
     switch (action.type) {
         case SET_USERS_DATA:
             return {
+                
                 ...state,
                 ...action.payload,
             }
@@ -75,7 +76,7 @@ export const setCaptchaURL = (captchaURL: string): setCaptchaURLActionType => ({
 
 //=========== Thunk Creators ============================================================>
 
-export const userAuthorization = () => async (dispatch) => {
+export const userAuthorization = () => async (dispatch: any) => {
     let data = await headerAPI.loginUser()
     if (data.resultCode === 0) {
         let { id, email, login } = data.data;
@@ -84,11 +85,11 @@ export const userAuthorization = () => async (dispatch) => {
 
 }
 
-export const userLogginIn = (formData) => async (dispatch) => {
+export const userLogginIn = (formData: any) => async (dispatch: any) => {
     let data = await headerAPI.userAuthorization(formData);
     if (data.resultCode === 0) {
         headerAPI.loginUser().then
-            (data => {
+            ((data: any) => {
                 if (data.resultCode === 0) {
                     dispatch(userAuthorization());
                 }
@@ -103,11 +104,11 @@ export const userLogginIn = (formData) => async (dispatch) => {
     }
 }
 
-export const userLogout = () => async (dispatch) => {
+export const userLogout = () => async (dispatch:any) => {
     let data = await headerAPI.userLogout();
     if (data.resultCode === 0) {
         headerAPI.userLogout().then
-            (data => {
+            ((data: any) => {
                 if (data.resultCode === 0) {
                     dispatch(setAuthUsersData(null, null, null, false));
                 }
@@ -115,7 +116,7 @@ export const userLogout = () => async (dispatch) => {
     }
 }
 
-export const getCaptchaURL = () => async (dispatch) => {
+export const getCaptchaURL = () => async (dispatch:any) => {
     const data = await securityAPI.captcha();
     const captchaURL = data.url;
     dispatch(setCaptchaURL(captchaURL));
