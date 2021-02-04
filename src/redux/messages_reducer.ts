@@ -1,9 +1,4 @@
-
-type DialogsDataType = {
-    name: string
-    userId: number
-    avatar: string
-}
+import { DialogsDataType } from "../components/Common/Types/types";
 
 type MessagesDataType = {
     message: string,

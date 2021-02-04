@@ -5,7 +5,7 @@ const Users = () => {
     return (
         <div className={classes.usersPageWrapper}>
             <div className={classes.usersList}>
-                <UsersListContainer />
+                <UsersListContainer pageTitle = 'Para Slov'/>
             </div>
         </div>
     )

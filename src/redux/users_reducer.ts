@@ -1,32 +1,27 @@
 
-import { usersAPI } from './../api/api';
-import { updateObjInArray } from './../utils/helpers/helpers';
+import { usersAPI } from '../api/api';
+import { PhotoTypes, UsersType } from '../components/Common/Types/types';
+import { updateObjInArray } from '../utils/helpers/helpers';
 
-// ================= Action creator Constants ======================================>
-
-const FOLLOW = 'joyme/users_reducer/FOLLOW';
-const UNFOLLOW = 'joyme/users_reducer/UNFOLLOW';
-const SET_USERS = 'joyme/users_reducer/SET_USERS';
-const SET_CURRENT_PAGE = 'joyme/users_reducer/SET_CURRENT_PAGE';
-const SET_TOTAL_USERS_COUNT = 'joyme/users_reducer/SET_TOTAL_USERS_COUNT';
-const TOGGLE_IS_FETCHING = 'joyme/users_reducer/TOGGLE_IS_FETCHING';
-const TOGGLE_FOLLOWING_PROGRESS = 'joyme/users_reducer/TOGGLE_FOLLOWING_PROGRESS'
 
 //================== Initial State =================================================>
 
+
 let initialState = {
-    users: [],
+    users: [] as Array<UsersType> | [],
     pageSize: 10,
     portionSize: 10,
     totalUsersCount: 0,
     currentPage: 1,
     isFetching: true,
-    followingInProgress: [],
+    followingInProgress: [] as Array<number>, // array of users id's
 };
+
+type UserInitialStateType = typeof initialState
 
 //================== Reducer =========================================================>
 
-const usersReducer = (state = initialState, action) => {
+const usersReducer = (state = initialState, action: any): UserInitialStateType => {
     switch (action.type) {
         case FOLLOW:
             return {
@@ -75,7 +70,7 @@ const usersReducer = (state = initialState, action) => {
                 ...state,
                 followingInProgress: action.followingInProgress ?
                     [...state.followingInProgress, action.userId] :
-                    state.followingInProgress.filter(id => id !== action.userId)
+                    state.followingInProgress.filter((id: number) => id !== action.userId)
             }
 
         default:
@@ -84,28 +79,50 @@ const usersReducer = (state = initialState, action) => {
 
 }
 
-//====== Action Creators ============================================================>
+// ================= Action creator Constants&Types ======================================>
 
-export const follow = (userId) => ({ type: FOLLOW, userId })
+const FOLLOW = 'para_slov/users_reducer/FOLLOW';
+const UNFOLLOW = 'para_slov/users_reducer/UNFOLLOW';
+const SET_USERS = 'para_slov/users_reducer/SET_USERS';
+const SET_CURRENT_PAGE = 'para_slov/users_reducer/SET_CURRENT_PAGE';
+const SET_TOTAL_USERS_COUNT = 'para_slov/users_reducer/SET_TOTAL_USERS_COUNT';
+const TOGGLE_IS_FETCHING = 'para_slov/users_reducer/TOGGLE_IS_FETCHING';
+const TOGGLE_FOLLOWING_PROGRESS = 'para_slov/users_reducer/TOGGLE_FOLLOWING_PROGRESS'
 
-export const unfollow = (userId) => ({ type: UNFOLLOW, userId })
+type FollowActionType = { type: typeof FOLLOW, userId: number }
+type UnfollowActionType = { type: typeof UNFOLLOW, userId: number }
+type SetUsersActionType = { type: typeof SET_USERS, users: UsersType }
+type SetCurrentPageActionType = { type: typeof SET_CURRENT_PAGE, currentPage: number }
+type SetTotalUsersCountActionType = { type: typeof SET_TOTAL_USERS_COUNT, totalCount: number }
+type ToggleIsFetchingActionType = { type: typeof TOGGLE_IS_FETCHING, isFetching: boolean }
+type ToggleFollowingProgressActionType = { type: typeof TOGGLE_FOLLOWING_PROGRESS, followingInProgress: any,
+    userId: number }
 
-export const setUsers = (users) => ({ type: SET_USERS, users })
+//====== Action Creators =================================================================>
 
-export const setCurrentPage = (currentPage) => ({ type: SET_CURRENT_PAGE, currentPage })
+export const follow = (userId: number): FollowActionType => ({ type: FOLLOW, userId })
 
-export const setTotalUsersCount = (totalCount) => ({ type: SET_TOTAL_USERS_COUNT, totalCount })
+export const unfollow = (userId: number): UnfollowActionType => ({ type: UNFOLLOW, userId })
 
-export const toggleIsFetching = (isFetching) => ({ type: TOGGLE_IS_FETCHING, isFetching })
+export const setUsers = (users: UsersType): SetUsersActionType => ({ type: SET_USERS, users })
 
-export const toggleFollowingProgress = (followingInProgress, userId) =>
+export const setCurrentPage = (currentPage: number): SetCurrentPageActionType => 
+    ({ type: SET_CURRENT_PAGE, currentPage })
+
+export const setTotalUsersCount = (totalCount: number): SetTotalUsersCountActionType => 
+    ({ type: SET_TOTAL_USERS_COUNT, totalCount })
+
+export const toggleIsFetching = (isFetching: boolean): ToggleIsFetchingActionType => 
+    ({ type: TOGGLE_IS_FETCHING, isFetching })
+
+export const toggleFollowingProgress = (followingInProgress: any, userId: number): ToggleFollowingProgressActionType =>
     ({ type: TOGGLE_FOLLOWING_PROGRESS, followingInProgress, userId })
 
 
 //=========== Thunk Creators ============================================================>
 
-export const getUsers = (currentPage, pageSize) => {
-    return async (dispatch) => {
+export const getUsers = (currentPage: number, pageSize: number) => {
+    return async (dispatch: any) => {
         dispatch(setCurrentPage(currentPage));
         dispatch(toggleIsFetching(true));
         const data = await usersAPI.getUsers(currentPage, pageSize)
@@ -115,7 +132,7 @@ export const getUsers = (currentPage, pageSize) => {
     }
 }
 
-export const userUnfollow = (userId) => async (dispatch) => {
+export const userUnfollow = (userId: number) => async (dispatch: any) => {
         dispatch(toggleFollowingProgress(true, userId));
         const data = await usersAPI.getUserUnfollowing(userId)
             if (data.resultCode === 0) {
@@ -125,7 +142,7 @@ export const userUnfollow = (userId) => async (dispatch) => {
     }
 
 
-export const userFollow = (userId) => async (dispatch) => {
+export const userFollow = (userId: number) => async (dispatch: any) => {
         dispatch(toggleFollowingProgress(true, userId));
         const data = await usersAPI.getUserFollowing(userId)
             if (data.resultCode === 0) {

@@ -2,8 +2,16 @@ import React from 'react';
 import classes from './../Users.module.css'
 import userPhoto from '../../../../assets/images/img.jpeg'
 import { NavLink } from 'react-router-dom';
+import { UsersType } from '../../../Common/Types/types';
 
-const User = ({user, followingInProgress, userUnfollow, userFollow}) => {
+type PropsType = {
+    user: UsersType
+    followingInProgress: Array<number>
+    userUnfollow: (userId: number) => void
+    userFollow: (userId: number) => void
+}
+
+const User: React.FC<PropsType> = ({user, followingInProgress, userUnfollow, userFollow}) => {
     return (
         <div key={user.id} className={classes.userList__item}>
                     <div className={classes.fuctional}>
@@ -19,13 +27,6 @@ const User = ({user, followingInProgress, userUnfollow, userFollow}) => {
                                 <button disabled={followingInProgress.some(id => id === user.id)}
                                     className={classes.followBtn} onClick={() => {
                                         userUnfollow(user.id);
-                                        // props.toggleFollowingProgress(true, u.id);
-                                        // usersAPI.getUserUnfollowing(u.id).then(data => {
-                                        //     if (data.resultCode === 0) {
-                                        //         props.unfollow(u.id)
-                                        //     };
-                                        //     props.toggleFollowingProgress(false, u.id);
-                                        //})
                                     }}>Unfollow</button> :
                                 <button disabled={followingInProgress.some(id => id === user.id)}
                                     className={classes.followBtn} 

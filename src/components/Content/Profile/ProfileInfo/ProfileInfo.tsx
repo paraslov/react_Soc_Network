@@ -4,15 +4,25 @@ import Preloader from '../../../Common/Preloader/Preloader';
 import yesImg from '../../../../assets/images/yes.png';
 import noImg from '../../../../assets/images/no.png';
 import ProfileStatusWithHooks from './ProfileStatusWithHooks';
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import ProfileDataForm from './ProfileDataForm';
+import { ProfileType } from '../../../Common/Types/types';
 
+type ProfileInfoPropsType = {
+    savePhoto: (imageFile: any) => void
+    saveProfile: (formData: any) => any
+    updateUserStatus: () => void
 
-const ProfileInfo = (props) => {
+    profile: ProfileType | null
+    status: string
+    isOwner: boolean
+}
+
+const ProfileInfo: React.FC<ProfileInfoPropsType> = (props) => {
 
     let [editMode, setEditMode] = useState(false);
 
-    const onMainPhotoSelected = (e) => {
+    const onMainPhotoSelected = (e: any) => {
         if (e.target.files.length) {
             props.savePhoto(e.target.files[0]);
         }
@@ -22,17 +32,10 @@ const ProfileInfo = (props) => {
         setEditMode(true);
     }
 
-    const onSubmit = (formData) => {
+    const onSubmit = (formData: any) => {
         props.saveProfile(formData).then(()=>{
             setEditMode(false);
         })
-        // if (props.profileChange === 'success') {
-        //     setEditMode(false);
-        // } else if (props.profileChange === 'error') {
-        //     setEditMode(true);
-        // } else {
-        //     alert('something going very wrong...')
-        // }
     }
 
 
@@ -55,7 +58,7 @@ const ProfileInfo = (props) => {
 
                     <div>
                         {props.isOwner && <div>
-                            <label className={classes.lable} for='b2'>
+                            <label className={classes.lable} htmlFor='b2'>
                                 Edit Profile Info
                                 <button id='b2' style={{ display: 'none' }} onClick={goToEditMode} />
                             </label>
@@ -69,7 +72,7 @@ const ProfileInfo = (props) => {
                 </div>
                 <div>
                     {props.isOwner && <div>
-                        <label className={classes.lable} for='b1'>
+                        <label className={classes.lable} htmlFor='b1'>
                             Change avatar
                                 <input id='b1' style={{ width: 0 }} type='file' onChange={onMainPhotoSelected} />
                         </label>
@@ -77,7 +80,9 @@ const ProfileInfo = (props) => {
                 </div>
 
                 {editMode ? <ProfileDataForm onSubmit={onSubmit}
-                    profile={props.profile} initialValues={props.profile} /> :
+                    initialValues={props.profile}
+                    // @ts-ignore
+                    profile={props.profile} /> :
                     <ProfileData profile={props.profile} />}
 
 
@@ -86,7 +91,11 @@ const ProfileInfo = (props) => {
     )
 }
 
-const ProfileData = (props) => {
+type ProfileDataPropsType = {
+    profile: ProfileType
+}
+
+const ProfileData: React.FC<ProfileDataPropsType> = (props) => {
     return <div>
         <div className={classes.jobInfo}>
             <div className={classes.jobInfo__item}><b>Looking 4 a job:</b> </div>
@@ -96,13 +105,19 @@ const ProfileData = (props) => {
         <div className={classes.contacts}>
             <div className={classes.contacts__item}><b>Contacts:</b></div>
             {Object.keys(props.profile.contacts).map(key => {
+                // @ts-ignore
                 return <Contacts contactTitle={key} contactValue={props.profile.contacts[key]} />
             })}
         </div>
     </div>
 }
 
-export const Contacts = ({ contactTitle, contactValue }) => {
+type ContactsPropsType = {
+    contactTitle: string
+    contactValue: string
+}
+
+export const Contacts: React.FC<ContactsPropsType> = ({ contactTitle, contactValue }) => {
     if (contactValue != null) {
         return <div className={classes.contacts__item}>{contactTitle}: <a
         href={contactValue} rel='noreferrer' target='_blank'>{contactValue}</a></div>

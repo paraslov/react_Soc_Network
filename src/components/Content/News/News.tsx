@@ -1,6 +1,6 @@
 import classes from './News.module.css'
 
-const News = (props) => {
+const News = () => {
 	return (
 		<div>
 			News up!!!

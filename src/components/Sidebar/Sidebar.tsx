@@ -1,7 +1,12 @@
+import { DialogsDataType } from '../Common/Types/types';
 import FriendItem from './FriendItem/FriendItem';
 import classes from './Sidebar.module.css';
 
-const Sidebar = (props) => {
+type PropsType = {
+    dialogsData: Array<DialogsDataType>
+}
+
+const Sidebar: React.FC<PropsType> = (props) => {
                     let FriendList = props.dialogsData.slice(0, 3)
                         .map(list => <FriendItem key={list.userId} avatar={list.avatar} userId={list.userId} name={list.name} />)
 

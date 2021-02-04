@@ -4,11 +4,29 @@ import Profile from './Profile';
 import { setUserTC } from '../../../redux/profile_reducer';
 import { withRouter } from 'react-router-dom';
 import { compose } from 'redux';
-import { getUserStatus, updateUserStatus, savePhoto, saveProfile } from './../../../redux/profile_reducer';
-import { getIsAuth, getProfile, getProfileStatus, getProfilePhotoUrl, getProfileChange } from './../../../redux/selectors/profile_selectors';
-import { getAuthorizedUserId } from './../../../redux/selectors/profile_selectors';
+import { getUserStatus, updateUserStatus, savePhoto, saveProfile } from '../../../redux/profile_reducer';
+import { getIsAuth, getProfile, getProfileStatus, getProfileChange } from '../../../redux/selectors/profile_selectors';
+import { getAuthorizedUserId } from '../../../redux/selectors/profile_selectors';
+import { ProfileType } from '../../Common/Types/types';
+import { AppStateType } from '../../../redux/redux_store';
 
+// type MapStatePropsType = {
+//     profile: ProfileType | null
+//     status: string
+//     authorizedUserId: number | null
+//     isAuth: boolean
+//     profileChange: string | null
+// }
 
+// type MapDispatchPropsType = {
+//     setUserProfile: (userId: number)=> void
+//     getUserStatus: (userId: number) => void
+//     updateUserStatus: () => void
+//     savePhoto: () => void
+//     saveProfile: () => void
+// }
+
+// type PropsType = MapDispatchPropsType & MapStatePropsType
 
 class ProfileContainer extends React.Component {
 
@@ -39,7 +57,7 @@ class ProfileContainer extends React.Component {
         return (
             <div>
                 <Profile {...this.props} profile = {this.props.profile} 
-                saveProfile = {this.props.saveProfile} profileChange = {this.props.profileChange}
+                saveProfile = {this.props.saveProfile} //profileChange = {this.props.profileChange}
                 isOwner = {!this.props.match.params.userId} savePhoto = {this.props.savePhoto}
                 status = {this.props.status} updateUserStatus={this.props.updateUserStatus}/>
             </div >
