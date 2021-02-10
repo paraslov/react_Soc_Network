@@ -1,6 +1,6 @@
 
 import { ThunkAction } from 'redux-thunk';
-import { usersAPI } from '../api/api';
+import { ResultCodesEnum, usersAPI } from '../api/api';
 import { UsersType } from '../components/Common/Types/types';
 import { updateObjInArray } from '../utils/helpers/helpers';
 import { AppStateType } from './redux_store';
@@ -140,7 +140,7 @@ export const getUsers = (currentPage: number,
 export const userUnfollow = (userId: number): ThunkType => async (dispatch) => {
         dispatch(toggleFollowingProgress(true, userId));
         const data = await usersAPI.getUserUnfollowing(userId)
-            if (data.resultCode === 0) {
+            if (data.resultCode === ResultCodesEnum.Success) {
                 dispatch(unfollow(userId));
             };
             dispatch(toggleFollowingProgress(false, userId));
@@ -150,7 +150,7 @@ export const userUnfollow = (userId: number): ThunkType => async (dispatch) => {
 export const userFollow = (userId: number): ThunkType => async (dispatch) => {
         dispatch(toggleFollowingProgress(true, userId));
         const data = await usersAPI.getUserFollowing(userId)
-            if (data.resultCode === 0) {
+            if (data.resultCode === ResultCodesEnum.Success) {
                 dispatch(follow(userId));
             };
             dispatch(toggleFollowingProgress(false, userId));

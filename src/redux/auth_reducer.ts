@@ -1,7 +1,8 @@
-import { headerAPI, securityAPI } from "../api/api";
+import { authAPI, ResultCodeForCaptcha, ResultCodesEnum, securityAPI } from "../api/api";
 import { stopSubmit } from "redux-form";
 import { ThunkAction } from "redux-thunk";
 import { AppStateType } from "./redux_store";
+import { UserLogginInFormDataType } from "../components/Common/Types/types";
 
 // ================= Action creator Constants ======================================>
 
@@ -83,7 +84,7 @@ export const setCaptchaURL = (captchaURL: string): setCaptchaURLActionType => ({
 type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, AuthActionsTypes>
 
 export const userAuthorization = (): ThunkType => async (dispatch) => {
-    let data = await headerAPI.loginUser()
+    let data = await authAPI.loginUser()
     if (data.resultCode === 0) {
         let { id, email, login } = data.data;
         dispatch(setAuthUsersData(id, email, login, true));
@@ -91,18 +92,18 @@ export const userAuthorization = (): ThunkType => async (dispatch) => {
 
 }
 // ! can't make typesation of stopSubmit yet
-export const userLogginIn = (formData: any): ThunkType => async (dispatch) => {
-    let data = await headerAPI.userAuthorization(formData);
+export const userLogginIn = (formData: UserLogginInFormDataType): ThunkType => async (dispatch) => {
+    let data = await authAPI.userAuthorization(formData);
     if (data.resultCode === 0) {
-        headerAPI.loginUser().then
-            ((data: any) => {
-                if (data.resultCode === 0) {
-                    dispatch(userAuthorization());
+        authAPI.loginUser().then
+            ((data) => {
+                if (data.resultCode === ResultCodesEnum.Success) {
+                    dispatch(userAuthorization());                    
                 }
             })
         alert('You were successfully logged in!')
     } else {
-        if (data.resultCode === 10){
+        if (data.resultCode === ResultCodeForCaptcha.CaptchaIsRequired){
             dispatch(getCaptchaURL());
         }
         let errorMessage = data.messages.length > 0 ? data.messages[0] : 'something wrong';
@@ -112,11 +113,11 @@ export const userLogginIn = (formData: any): ThunkType => async (dispatch) => {
 }
 
 export const userLogout = (): ThunkType => async (dispatch) => {
-    let data = await headerAPI.userLogout();
+    let data = await authAPI.userLogout();
     if (data.resultCode === 0) {
-        headerAPI.userLogout().then
-            ((data: any) => {
-                if (data.resultCode === 0) {
+        authAPI.userLogout().then
+            ((data) => {
+                if (data.resultCode === ResultCodesEnum.Success) {
                     dispatch(setAuthUsersData(null, null, null, false));
                 }
             })

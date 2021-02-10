@@ -1,6 +1,6 @@
-import { profileAPI } from "../api/api";
+import { profileAPI, ResultCodesEnum } from "../api/api";
 import { stopSubmit } from 'redux-form';
-import { PhotoTypes, ProfileType } from "../components/Common/Types/types";
+import { PhotoType, ProfileType } from "../components/Common/Types/types";
 import { ThunkAction } from "redux-thunk";
 import { AppStateType } from "./redux_store";
 import { Dispatch } from "react";
@@ -103,13 +103,13 @@ type AddPostActionType = { type: typeof ADD_POST, newText: string}
 type DeletePostActionType = { type: typeof POST_DELETE, postId: number}
 type SetUserProfileActionType = { type: typeof SET_USER_PROFILE, profile: ProfileType}
 type SetUserStatusActionType = { type: typeof SET_USER_STATUS, status: string}
-type SetUserPhotoSuccessActionType = { type: typeof SET_USER_PHOTO_SUCCESS, photos: PhotoTypes}
+type SetUserPhotoSuccessActionType = { type: typeof SET_USER_PHOTO_SUCCESS, photos: PhotoType}
 type SetProfileChangeActionType = { type: typeof SET_PROFILE_CHANGE_RESULT, profileChange: string}
 
 
 //====== Action Creators =================================================================>
 
-export const addPostActionCreator = (text: string): AddPostActionType => ({ type: ADD_POST, newText: text });
+export const addPost = (text: string): AddPostActionType => ({ type: ADD_POST, newText: text });
 
 export const deletePost = (postId: number): DeletePostActionType => ({ type: POST_DELETE, postId }); 
 
@@ -119,7 +119,7 @@ export const setUserProfile = (profile: ProfileType): SetUserProfileActionType =
 
 export const setUserStatus = (status: string): SetUserStatusActionType => ({ type: SET_USER_STATUS, status: status });
 
-export const setUserPhotoSuccess = (photos: PhotoTypes): SetUserPhotoSuccessActionType => ({ type: SET_USER_PHOTO_SUCCESS, photos });
+export const setUserPhotoSuccess = (photos: PhotoType): SetUserPhotoSuccessActionType => ({ type: SET_USER_PHOTO_SUCCESS, photos });
 
 export const setProfileChange = (profileChange: string): SetProfileChangeActionType => ({ type: SET_PROFILE_CHANGE_RESULT, profileChange });
 
@@ -128,13 +128,13 @@ export const setProfileChange = (profileChange: string): SetProfileChangeActionT
 type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ProfileActionsTypes>
 
 export const getUserStatus = (id: number): ThunkType => async (dispatch) => {
-    const response = await profileAPI.getStatus(id);
-    dispatch(setUserStatus(response));
+    const status = await profileAPI.getStatus(id);
+    dispatch(setUserStatus(status));
 }
 
 export const updateUserStatus = (status: string): ThunkType => async (dispatch) => {
-    const response = await profileAPI.updateStatus(status);
-    if (response.data.resultCode === 0) {
+    const data = await profileAPI.updateStatus(status);
+    if (data.resultCode === ResultCodesEnum.Success) {
         dispatch(setUserStatus(status));
     }
 }

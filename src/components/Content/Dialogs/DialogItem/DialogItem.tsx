@@ -1,8 +1,13 @@
 import classes from './../Dialogs.module.css'
 import { NavLink } from 'react-router-dom';
 
+type PropsType = {
+    avatar: string
+    userId: number
+    name: string
+}
 
-const DialogItem = (props) => {
+const DialogItem: React.FC<PropsType> = (props) => {
     return (
         <div className={classes.item}>
             <img className={classes.avatar__image} src={props.avatar} alt="user's avatar"/>

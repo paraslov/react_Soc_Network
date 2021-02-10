@@ -1,7 +1,10 @@
 import classes from './MessageItem.module.css'
 
+type PropsType = {
+    text: string
+}
 
-const MessageItem = (props) => {
+const MessageItem: React.FC<PropsType> = (props) => {
     return (
         <div className={classes.user__message}>
             <div className={classes.circle}></div>

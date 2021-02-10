@@ -12,6 +12,14 @@ export const getProfileChange = (state: AppStateType) => {
     return state.profilePage.profileChange;
 } 
 
+export const getPostsData = (state: AppStateType) => {
+    return state.profilePage.postsData
+}
+
+export const getNewPostText = (state: AppStateType) => {
+    return state.profilePage.newPostText
+}
+
 export const getAuthorizedUserId = (state: AppStateType) => {
     return state.auth.id;
 }
@@ -26,4 +34,8 @@ export const getAuthLogin = (state: AppStateType) => {
 
 export const getAuthEmail = (state: AppStateType) => {
     return state.auth.email
+}
+
+export const getCaptchaURLState = (state: AppStateType) => {
+    return state.auth.captchaURL
 }

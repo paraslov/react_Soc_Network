@@ -1,6 +1,12 @@
+import { PostsDataType } from '../../../../../redux/profile_reducer';
 import classes from './SinglePost.module.css'
 
-const SinglePost = (props) => {
+type PropsType = {
+    message: string
+    likeCounter: number
+}
+
+const SinglePost: React.FC<PropsType> = (props) => {
     return (
 
         <div className={classes.item}>
