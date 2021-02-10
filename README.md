@@ -1,3 +1,9 @@
+Hi! This is my first big learning project with React - Social Network.
+
+I'm using following stack of technologies here: redux, react-redux, redux-form, browser-router, typescript and etc.
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
