@@ -14,7 +14,6 @@ const maxLength200 = maxLengthCreator(200);
 type DialogsFormPropsType = {
     newMessageText: string
 }
-
 type DialogsFormValuesKeysType = keyof DialogsFormPropsType
 
 const DialogsForm: React.FC<InjectedFormProps<DialogsFormPropsType>> = (props) => {
@@ -37,9 +36,8 @@ const DialogsReduxForm = reduxForm<DialogsFormPropsType>({form: 'dialogs'})(Dial
 
 type DialogsPropsType = {
     messagesPage: DialogsIntitialStateType
-    isAuth: boolean
 
-    sendMessage: (text: string) => void
+    sendMessage: (messageText: string) => void
 }
 
 const Dialogs: React.FC<DialogsPropsType> = (props) => {
@@ -54,8 +52,6 @@ const Dialogs: React.FC<DialogsPropsType> = (props) => {
         props.sendMessage(formData.newMessageText);
         formData.newMessageText = '';
     }
-
-    if (!props.isAuth) { return <Redirect to='/login'/> }
 
     return (
         <div className={classes.dialogs}>

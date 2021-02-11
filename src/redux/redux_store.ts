@@ -24,8 +24,9 @@ export type AppStateType = ReturnType<RootReducerType>
 export type BaseThunkType<A extends Action = Action, R = Promise<void>> = ThunkAction<R, AppStateType, unknown, A>
 
 //* creating type to infer types from Actions
-type PropertiesTypes<T> = T extends {[key: string]: infer U} ? U : never
-export type InferActionsTypes<T extends { [key: string]: (...args: any[]) => any }> = ReturnType<PropertiesTypes<T>>
+// type PropertiesTypes<T> = T extends {[key: string]: infer U} ? U : never
+// export type InferActionsTypes<T extends { [key: string]: (...args: any[]) => any }> = ReturnType<PropertiesTypes<T>>
+export type InferActionsTypes<T> = T extends { [key: string]: (...args: any[]) => infer U } ? U : never
 
 // @ts-ignore
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose

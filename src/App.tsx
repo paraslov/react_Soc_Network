@@ -14,17 +14,18 @@ import SidebarConteiner from './components/Sidebar/SidebarConteiner';
 import { initializeApp } from './redux/app_reducer';
 import { connect, Provider } from 'react-redux';
 import Preloader from './components/Common/Preloader/Preloader';
-import store from './redux/redux_store';
+import store, { AppStateType } from './redux/redux_store';
 import { withSuspenseComponent } from './hoc/withSuspenseComponent';
+import { getAppInitialized } from './redux/selectors/app_selectors';
 
 
 const DialogsContainer = React.lazy(() => import('./components/Content/Dialogs/DialogsContainer'));
 const ProfileContainer = React.lazy(() => import('./components/Content/Profile/ProfileContainer'));
 
 
-class App extends React.Component {
-    catchAllUnhandledErrors = () => {
-        
+class App extends React.Component<AppPropsType> {
+    catchAllUnhandledErrors = (e: PromiseRejectionEvent) => {
+        console.log('Some error occured')
     }
 
     componentDidMount() {
@@ -75,15 +76,24 @@ class App extends React.Component {
 
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state: AppStateType) => {
     return ({
-        initialized: state.app.initialized,
+        initialized: getAppInitialized(state),
     })
 }
 
-const AppContainer = connect(mapStateToProps, { initializeApp })(App);
+type MapStatePropsType = {
+    initialized: boolean
+}
+type MapDispatchPropsType = {
+    initializeApp: ()=> void
+}
+type AppPropsType = MapStatePropsType & MapDispatchPropsType
 
-const ParaSlovApp = (props) => {
+const AppContainer = connect<MapStatePropsType, MapDispatchPropsType, {}, AppStateType>
+                            (mapStateToProps, { initializeApp })(App);
+
+const ParaSlovApp: React.FC = () => {
     return (
         <BrowserRouter>
             <Provider store={store}>
