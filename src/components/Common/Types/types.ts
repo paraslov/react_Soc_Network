@@ -45,3 +45,9 @@ export type UserLogginInFormDataType = {
 	rememberMe: boolean
 	captcha: string
 }
+
+export type PostsDataType = {
+	message: string
+	likeCounter: number
+	id: number
+}

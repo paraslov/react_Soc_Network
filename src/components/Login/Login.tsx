@@ -22,27 +22,27 @@ type LoginFormOwnPropsType = {
 
 //* Creating types for LoginForm keys values for function myCreateField
 
-type LoginFormKeysValuesType = keyof UserLogginInFormDataType;
+type LoginFormValuesKeysType = keyof UserLogginInFormDataType;
 
 const LoginForm: React.FC<InjectedFormProps<UserLogginInFormDataType, LoginFormOwnPropsType> & LoginFormOwnPropsType> = 
     ({handleSubmit, error, captchaURL}) => {
 	return (
 		<form onSubmit={handleSubmit}>            
-            {myCreateField<LoginFormKeysValuesType>('e-mail', 'email', Input, [fieldRequired, maxLength35] )}
+            {myCreateField<LoginFormValuesKeysType>('e-mail', 'email', Input, [fieldRequired, maxLength35] )}
                 {/* same as:             */}
                 {/* <div>
                     <Field placeholder={'email'} name={'email'} component = {Input}
                     validate={[fieldRequired, maxLength35]}/>
                 </div>*/}            
-            {myCreateField<LoginFormKeysValuesType>('password', 'password', Input, [fieldRequired, maxLength35], {type: 'password'})}
+            {myCreateField<LoginFormValuesKeysType>('password', 'password', Input, [fieldRequired, maxLength35], {type: 'password'})}
                 {/* <div><Field  placeholder={'password'} name={'password'} component = {Input}
                 validate={[fieldRequired, maxLength35]} type='password'/></div> */}
-            {myCreateField<LoginFormKeysValuesType>(undefined, 'rememberMe', Input, [], {type: 'checkbox'})}
+            {myCreateField<LoginFormValuesKeysType>(undefined, 'rememberMe', Input, [], {type: 'checkbox'})}
             {error && <div className={classes.errorOnSubmit}>
                 Error acuired: {error}
             </div>}
             {captchaURL && <img src = {captchaURL} alt = 'captcha'/>}
-            {captchaURL && myCreateField<LoginFormKeysValuesType>('input symbols from image', 
+            {captchaURL && myCreateField<LoginFormValuesKeysType>('input symbols from image', 
                 'captcha', Input, [fieldRequired])}
             <div>
                 <button>Sign in</button>

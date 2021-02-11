@@ -1,23 +1,16 @@
-import { authAPI, ResultCodeForCaptcha, ResultCodesEnum, securityAPI } from "../api/api";
-import { stopSubmit } from "redux-form";
-import { ThunkAction } from "redux-thunk";
-import { AppStateType } from "./redux_store";
+import { ResultCodeForCaptcha, ResultCodesEnum } from "../api/api";
+import { FormAction, stopSubmit } from "redux-form";
+import { BaseThunkType, InferActionsTypes } from "./redux_store";
 import { UserLogginInFormDataType } from "../components/Common/Types/types";
+import { authAPI } from "../api/auth_api";
+import { securityAPI } from "../api/security_api";
 
-// ================= Action creator Constants ======================================>
+//* ================= Action creator Constants ======================================>
 
 const SET_USERS_DATA = 'para_slov/auth/SET_USERS_DATA';
 const GET_CAPTCHA_URL = 'para_slov/auth/GET_CAPTCHA_URL';
 
-//================== Initial State =================================================>
-
-// export type AuthInitialStateType = {
-//     id: number | null,
-//     email: string | null,
-//     login: string | null,
-//     isAuth: boolean,
-//     captchaURL: string | null,
-// }
+//* ================== Initial State =================================================>
 
 let initialState = {
     id: null as number | null,
@@ -35,9 +28,8 @@ const authReducer = (state = initialState, action: AuthActionsTypes): AuthInitia
     switch (action.type) {
         case SET_USERS_DATA:
             return {
-                
                 ...state,
-                ...action.payload,
+                ...action.payload,                
             }
         case GET_CAPTCHA_URL:
             return {
@@ -51,50 +43,35 @@ const authReducer = (state = initialState, action: AuthActionsTypes): AuthInitia
     }
 }
 
-// ================= Action creator Types ======================================>
+//* ================= Action creator Types ======================================>
 
-type AuthActionsTypes = setUserDataActionType | setCaptchaURLActionType
+type AuthActionsTypes = InferActionsTypes<typeof authActions>
 
-type userPayloadType = {
-    id: number | null
-    login: string | null
-    email: string | null
-    isAuth: boolean
+//* ====== Action Creators =========================================================>
+
+export const authActions = {
+    setAuthUsersData: (userId: number | null, email: string | null, login: string | null, isAuth: boolean) =>
+        ({ type: SET_USERS_DATA, payload: { id: userId, email, login, isAuth } } as const),
+
+    setCaptchaURL: (captchaURL: string) => ({ type: GET_CAPTCHA_URL, captchaURL } as const),
 }
 
-type setUserDataActionType = {
-    type: typeof SET_USERS_DATA
-    payload: userPayloadType
-}
+//* =========== Thunk Creators ============================================================>
 
-type setCaptchaURLActionType = {
-    type: typeof GET_CAPTCHA_URL;
-    captchaURL: string;
-}
-
-//====== Action Creators =============================================
-
-export const setAuthUsersData = (userId: number | null, email: string | null, login: string | null, isAuth: boolean): setUserDataActionType =>
-    ({ type: SET_USERS_DATA, payload: { id: userId, email, login, isAuth } })
-
-export const setCaptchaURL = (captchaURL: string): setCaptchaURLActionType => ({type: GET_CAPTCHA_URL, captchaURL})
-
-//=========== Thunk Creators ============================================================>
-
-type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, AuthActionsTypes>
+type ThunkType = BaseThunkType<AuthActionsTypes | FormAction>
 
 export const userAuthorization = (): ThunkType => async (dispatch) => {
     let data = await authAPI.loginUser()
-    if (data.resultCode === 0) {
+    if (data.resultCode === ResultCodesEnum.Success) {
         let { id, email, login } = data.data;
-        dispatch(setAuthUsersData(id, email, login, true));
+        dispatch(authActions.setAuthUsersData(id, email, login, true));
     }
 
 }
-// ! can't make typesation of stopSubmit yet
+// ! can't make strict typesation of stopSubmit
 export const userLogginIn = (formData: UserLogginInFormDataType): ThunkType => async (dispatch) => {
     let data = await authAPI.userAuthorization(formData);
-    if (data.resultCode === 0) {
+    if (data.resultCode === ResultCodesEnum.Success) {
         authAPI.loginUser().then
             ((data) => {
                 if (data.resultCode === ResultCodesEnum.Success) {
@@ -107,7 +84,6 @@ export const userLogginIn = (formData: UserLogginInFormDataType): ThunkType => a
             dispatch(getCaptchaURL());
         }
         let errorMessage = data.messages.length > 0 ? data.messages[0] : 'something wrong';
-        // @ts-ignore
         dispatch(stopSubmit('login', { _error: errorMessage }));
     }
 }
@@ -118,7 +94,7 @@ export const userLogout = (): ThunkType => async (dispatch) => {
         authAPI.userLogout().then
             ((data) => {
                 if (data.resultCode === ResultCodesEnum.Success) {
-                    dispatch(setAuthUsersData(null, null, null, false));
+                    dispatch(authActions.setAuthUsersData(null, null, null, false));
                 }
             })
     }
@@ -127,7 +103,7 @@ export const userLogout = (): ThunkType => async (dispatch) => {
 export const getCaptchaURL = (): ThunkType => async (dispatch) => {
     const data = await securityAPI.captcha();
     const captchaURL = data.url;
-    dispatch(setCaptchaURL(captchaURL));
+    dispatch(authActions.setCaptchaURL(captchaURL));
 }
 
 

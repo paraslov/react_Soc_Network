@@ -3,21 +3,29 @@ import classes from './Dialogs.module.css';
 import DialogItem from './DialogItem/DialogItem';
 import MessageItem from './MessageItem/MessageItem';
 import { Redirect } from 'react-router-dom';
-import { Field, reduxForm } from 'redux-form';
-import { Textarea } from '../../Common/FormsControls/FormsControls';
+import { Field, InjectedFormProps, reduxForm } from 'redux-form';
+import { myCreateField, Textarea } from '../../Common/FormsControls/FormsControls';
 import { fieldRequired, maxLengthCreator } from '../../../utils/validators/validators';
 import { DialogsIntitialStateType } from '../../../redux/messages_reducer';
 
 
-const maxLength50 = maxLengthCreator(50);
+const maxLength200 = maxLengthCreator(200);
 
-const DialogsForm = (props: any) => {
+type DialogsFormPropsType = {
+    newMessageText: string
+}
+
+type DialogsFormValuesKeysType = keyof DialogsFormPropsType
+
+const DialogsForm: React.FC<InjectedFormProps<DialogsFormPropsType>> = (props) => {
     return (
         <form onSubmit={props.handleSubmit}>
-            <div>
+            {myCreateField<DialogsFormValuesKeysType>('enter your message', 'newMessageText', Textarea, [fieldRequired, maxLength200], 
+                            {cols: '50', rows: '7'})}
+            {/* <div>
                 <Field  placeholder="enter your message" validate={[fieldRequired, maxLength50]}
                     cols="50" rows="7"  name='newMessageText' component={Textarea}/>
-            </div>
+            </div> */}
             <div>
                 <button>Send message</button>
             </div> 
@@ -25,7 +33,7 @@ const DialogsForm = (props: any) => {
     )
 }
 
-const DialogsReduxForm = reduxForm({form: 'dialogs'})(DialogsForm);
+const DialogsReduxForm = reduxForm<DialogsFormPropsType>({form: 'dialogs'})(DialogsForm);
 
 type DialogsPropsType = {
     messagesPage: DialogsIntitialStateType
@@ -58,8 +66,6 @@ const Dialogs: React.FC<DialogsPropsType> = (props) => {
                 { messagesElements }
             </div>
             <div className={classes.send__message}>
-                {/* Form submit */}
-                {/* @ts-ignore */}
                 <DialogsReduxForm onSubmit={onDialogsFormSubmit}/>
             </div>
         </div>

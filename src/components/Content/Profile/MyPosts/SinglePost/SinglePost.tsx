@@ -1,4 +1,3 @@
-import { PostsDataType } from '../../../../../redux/profile_reducer';
 import classes from './SinglePost.module.css'
 
 type PropsType = {

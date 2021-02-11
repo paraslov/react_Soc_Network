@@ -1,4 +1,5 @@
 import { DialogsDataType } from "../components/Common/Types/types";
+import { InferActionsTypes } from "./redux_store";
 
 type MessagesDataType = {
     message: string,
@@ -41,18 +42,16 @@ const messagesReducer = (state = initialState, action: MessagesActionsTypes):Dia
 }
 
 // ================= Action creator Constants&Types ======================================>
-const SEND_MESSAGE = 'SEND-MESSAGE';
+const SEND_MESSAGE = 'para_slov/messages_reducer/SEND-MESSAGE';
 
-type MessagesActionsTypes = sendMessageActionType
+type MessagesActionsTypes = InferActionsTypes<typeof messagesActions>
 
-type sendMessageActionType = {
-    type: typeof SEND_MESSAGE,
-    newMessageText: string,
-}
 
 //====== Action Creators =============================================
 
+export const messagesActions = {
+    sendMessage: (text: string) => ({ type: SEND_MESSAGE, newMessageText: text } as const)
+}
 
-export const sendMessage = (text: any): sendMessageActionType => ({ type: SEND_MESSAGE, newMessageText: text })
 
 export default messagesReducer;

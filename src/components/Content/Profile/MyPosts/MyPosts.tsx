@@ -4,19 +4,19 @@ import classes from './MyPosts.module.css';
 import SinglePost from './SinglePost/SinglePost';
 import { fieldRequired, maxLengthCreator } from '../../../../utils/validators/validators';
 import { myCreateField, Textarea } from '../../../Common/FormsControls/FormsControls';
-import { PostsDataType } from '../../../../redux/profile_reducer';
+import { PostsDataType } from '../../../Common/Types/types';
 
 const maxLength200 = maxLengthCreator(200);
 
 type MyPostFormPropsType = {
     newPostText: string
 }
-type MyPostFormKeysValuesType = keyof MyPostFormPropsType
+type MyPostFormValuesKeysType = keyof MyPostFormPropsType
 
 const MyPostsForm: React.FC<InjectedFormProps<MyPostFormPropsType>> = (props) => {
     return (        
         <form onSubmit = {props.handleSubmit}>
-            {myCreateField<MyPostFormKeysValuesType>('enter your post', 'newPostText', Textarea, [fieldRequired, maxLength200], {cols:'50', rows:'7'})}
+            {myCreateField<MyPostFormValuesKeysType>('enter your post', 'newPostText', Textarea, [fieldRequired, maxLength200], {cols:'50', rows:'7'})}
             {/* <div>
                 <Field name = "newPostText" validate={[fieldRequired, maxLength200]}
                     cols="50" rows="7" placeholder="enter your post" component={Textarea}/>

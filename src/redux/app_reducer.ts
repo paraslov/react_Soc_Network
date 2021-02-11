@@ -1,25 +1,25 @@
 import { ThunkAction } from "redux-thunk";
 import { userAuthorization } from "./auth_reducer";
-import { AppStateType } from "./redux_store";
+import { AppStateType, InferActionsTypes } from "./redux_store";
 
 // ================= Action creator Constants ======================================>
-const INITIALIZED_SUCCESS = 'para_slov/app_reduser/INITIALIZED_SUCCESS';
+//* In app reducer I have avoid to use constats for action creators type prop.
+//* just for example
+// const INITIALIZED_SUCCESS = 'para_slov/app_reduser/INITIALIZED_SUCCESS';
 
 //================== Initial State =================================================>
 
-type AppInitialStateType = {
-	initialized: boolean
-}
-
-let initialState: AppInitialStateType = {
+let initialState = {
 	initialized: false,
 }
+
+type AppInitialStateType = typeof initialState;
 
 //================== Reducers =========================================================>
 
 const appReducer = (state: AppInitialStateType = initialState, action: AppActionsTypes): AppInitialStateType => {
 	switch (action.type) {
-		case INITIALIZED_SUCCESS:
+		case 'para_slov/app_reducer/INITIALIZED_SUCCESS':
 			return {
 				...state,
 				initialized: true
@@ -32,15 +32,13 @@ const appReducer = (state: AppInitialStateType = initialState, action: AppAction
 
 //====== Action Types===================================================================>
 
-type AppActionsTypes = InitializedSuccessActionType
-
-type InitializedSuccessActionType = {
-	type: typeof INITIALIZED_SUCCESS
-}
+type AppActionsTypes = InferActionsTypes<typeof appActions>
 
 //====== Action Creators ===============================================================>
 
-export const initializedSuccess = (): InitializedSuccessActionType => ({ type: INITIALIZED_SUCCESS })
+export const appActions = {
+	initializedSuccess: () => ({ type: 'para_slov/app_reducer/INITIALIZED_SUCCESS' } as const)
+}
 
 //=========== Thunk Creators ============================================================>
 
@@ -50,7 +48,7 @@ export const initializeApp = (): ThunkType => (dispatch) => {
 	let promise = dispatch(userAuthorization());
 
 	promise.then( () => {
-		dispatch(initializedSuccess());
+		dispatch(appActions.initializedSuccess());
 	})
 }
 

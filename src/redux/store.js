@@ -1,6 +1,9 @@
 import messagesReducer from "./messages_reducer";
 import profileReducer from "./profile_reducer";
 
+//! This is my own store, wich was created to understand structure and functioning of redux_store
+//* It was replaced by redux_store and kept just for history
+
 let store = {
 
 //================= Inner props =========================

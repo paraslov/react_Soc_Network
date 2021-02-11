@@ -1,7 +1,8 @@
 import { connect } from 'react-redux';
-import { addPost, PostsDataType } from '../../../../redux/profile_reducer'
+import { profileActions } from '../../../../redux/profile_reducer'
 import { AppStateType } from '../../../../redux/redux_store';
-import { getNewPostText, getPostsData } from '../../../../redux/selectors/profile_selectors';
+import { getPostsData } from '../../../../redux/selectors/profile_selectors';
+import { PostsDataType } from '../../../Common/Types/types';
 import MyPosts from './MyPosts';
 
 type MapStatePropsType = {
@@ -17,8 +18,9 @@ let mapStateToProps = (state: AppStateType) => {
         postsData: getPostsData(state),
     }
 }
-// @ts-ignore
-const MyPostsContainer = connect<MapStatePropsType, MapDispatchToProps, {}, AppStateType>(mapStateToProps, {addPost})(MyPosts);
+
+const MyPostsContainer = connect<MapStatePropsType, MapDispatchToProps, {}, AppStateType>
+                                (mapStateToProps, {addPost: profileActions.addPost})(MyPosts);
 
 
 export default MyPostsContainer;

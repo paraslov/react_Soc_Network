@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { DialogsIntitialStateType, sendMessage } from '../../../redux/messages_reducer';
+import { DialogsIntitialStateType, messagesActions } from '../../../redux/messages_reducer';
 import Dialogs from './Dialogs';
 import { withAuthRedirect } from '../../../hoc/withAuthRedirect'
 import { compose } from 'redux';
@@ -22,6 +22,8 @@ let mapStateToProps = (state: AppStateType) => {
 
 
 export default compose(
-    connect<MapStatePropsType, MapDispatchPropsType, {}, AppStateType>(mapStateToProps, {sendMessage}),
+    connect<MapStatePropsType, MapDispatchPropsType, {}, AppStateType>(
+        mapStateToProps, 
+        {sendMessage: messagesActions.sendMessage}),
     withAuthRedirect
 )(Dialogs);
