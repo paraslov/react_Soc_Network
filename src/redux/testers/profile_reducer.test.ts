@@ -10,9 +10,7 @@ let state = {
         { message: "Props was succesfully integrated!", likeCounter: 66, id: 4 }
     ] as Array<PostsDataType>,
     profile: null as ProfileType | null,
-    newPostText: null as null | string,
     status: '' as string,
-    profileChange: null as null | string,
 }
 
 it('new post should be added', () => {

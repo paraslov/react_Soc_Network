@@ -8,12 +8,12 @@ import { PostsDataType } from '../../../Common/Types/types';
 
 const maxLength200 = maxLengthCreator(200);
 
-type MyPostFormPropsType = {
+type MyPostFormValuesPropsType = {
     newPostText: string
 }
-type MyPostFormValuesKeysType = keyof MyPostFormPropsType
+type MyPostFormValuesKeysType = keyof MyPostFormValuesPropsType
 
-const MyPostsForm: React.FC<InjectedFormProps<MyPostFormPropsType>> = (props) => {
+const MyPostsForm: React.FC<InjectedFormProps<MyPostFormValuesPropsType>> = (props) => {
     return (        
         <form onSubmit = {props.handleSubmit}>
             {myCreateField<MyPostFormValuesKeysType>('enter your post', 'newPostText', Textarea, [fieldRequired, maxLength200], {cols:'50', rows:'7'})}
@@ -28,7 +28,7 @@ const MyPostsForm: React.FC<InjectedFormProps<MyPostFormPropsType>> = (props) =>
     )
 }
 
-const MyPostsReduxForm = reduxForm<MyPostFormPropsType>({form: 'myPosts'})(MyPostsForm);
+const MyPostsReduxForm = reduxForm<MyPostFormValuesPropsType>({form: 'myPosts'})(MyPostsForm);
 
 type MyPostsPropsType = {
     postsData: Array<PostsDataType>

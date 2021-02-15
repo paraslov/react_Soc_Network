@@ -1,7 +1,7 @@
 import { ResultCodesEnum } from "../api/api"
 import { FormAction, stopSubmit } from 'redux-form'
 import { PhotoType, PostsDataType, ProfileType } from "../components/Common/Types/types";
-import { AppStateType, BaseThunkType, InferActionsTypes } from "./redux_store"
+import { BaseThunkType, InferActionsTypes } from "./redux_store"
 import { profileAPI } from "../api/profile_api"
 
 
@@ -16,9 +16,7 @@ let initialState = {
         { message: "Props was succesfully integrated!", likeCounter: 66, id: 4 }
     ] as Array<PostsDataType>,
     profile: null as ProfileType | null,
-    newPostText: null as null | string,
     status: '' as string,
-    profileChange: null as null | string,
 }
 
 type ProfileInitialStateType = typeof initialState
@@ -35,7 +33,6 @@ const profileReducer = (state = initialState, action: ProfileActionsTypes): Prof
                     likeCounter: 0,
                     id: state.postsData.length + 1
                 }],
-                newPostText: ''
             }
 
         case POST_DELETE:
@@ -59,12 +56,6 @@ const profileReducer = (state = initialState, action: ProfileActionsTypes): Prof
             return {
                 ...state,
                 status: action.status
-            }
-
-        case SET_PROFILE_CHANGE_RESULT:
-            return {
-                ...state,
-                profileChange: action.profileChange
             }
 
         case SET_USER_PHOTO_SUCCESS:
@@ -107,8 +98,6 @@ export const profileActions = {
     setUserStatus: (status: string) => ({ type: SET_USER_STATUS, status: status } as const),
 
     setUserPhotoSuccess: (photos: PhotoType) => ({ type: SET_USER_PHOTO_SUCCESS, photos } as const),
-
-    setProfileChange: (profileChange: string) => ({ type: SET_PROFILE_CHANGE_RESULT, profileChange } as const),
 }
 
 //=========== Thunk Creators ============================================================>
@@ -140,24 +129,19 @@ export const saveProfile = (profile: ProfileType): ThunkType => async (dispatch,
     if(data.resultCode === 0){
         alert('Profile changes applied!')
         if(id!=null){
-            dispatch(setUserTC(id))
+            dispatch(getUserProfile(id))
         } else {
             throw new Error("user id can't be null")
         }
-        dispatch(profileActions.setProfileChange('success'))
-        debugger
     } else { 
         dispatch(stopSubmit('edit-profile', { _error: data.messages[0] }))
-        dispatch(profileActions.setProfileChange('error'))
         return Promise.reject(data.messages[0])
     }
 }
 
-export const setUserTC = (userId: number): ThunkType => {
-    return async (dispatch) => {
+export const getUserProfile = (userId: number | null): ThunkType => async (dispatch) => {
         const data = await profileAPI.setUser(userId)
         dispatch(profileActions.setUserProfile(data))
-    }
 }
 
 

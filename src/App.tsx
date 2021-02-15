@@ -1,3 +1,5 @@
+//! s2l11t1:38:31
+
 import React from 'react';
 import { Route, BrowserRouter, Switch, Redirect } from 'react-router-dom';
 import './App.css';
@@ -21,6 +23,9 @@ import { getAppInitialized } from './redux/selectors/app_selectors';
 
 const DialogsContainer = React.lazy(() => import('./components/Content/Dialogs/DialogsContainer'));
 const ProfileContainer = React.lazy(() => import('./components/Content/Profile/ProfileContainer'));
+
+const SuspendedProfile = withSuspenseComponent(ProfileContainer)
+const SuspendedDialogs = withSuspenseComponent(DialogsContainer)
 
 
 class App extends React.Component<AppPropsType> {
@@ -52,9 +57,9 @@ class App extends React.Component<AppPropsType> {
                 <div className='app-wrapper__content'>
                     <Switch>
                         <Route exact path='/' render={()=> <Redirect to='/profile'/>} />
-                        <Route path='/profile/:userId?' render={withSuspenseComponent(ProfileContainer)} />
+                        <Route path='/profile/:userId?' render={ () => <SuspendedProfile />} />
 
-                        <Route path='/dialogs' render={withSuspenseComponent(DialogsContainer)} />
+                        <Route path='/dialogs' render={ () => <SuspendedDialogs />} />
 
                         <Route path='/users' render={() =>
                             <Users />} />

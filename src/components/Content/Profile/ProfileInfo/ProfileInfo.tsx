@@ -6,12 +6,12 @@ import noImg from '../../../../assets/images/no.png';
 import ProfileStatusWithHooks from './ProfileStatusWithHooks';
 import { ChangeEvent, useState } from 'react';
 import ProfileDataForm from './ProfileDataForm';
-import { ProfileType } from '../../../Common/Types/types';
+import { ContactsType, ProfileType } from '../../../Common/Types/types';
 
 type ProfileInfoPropsType = {
-    savePhoto: (imageFile: any) => void
-    saveProfile: (formData: any) => any
-    updateUserStatus: () => void
+    savePhoto: (imageFile: File) => void
+    saveProfile: (formData: ProfileType) => any
+    updateUserStatus: (status: string) => void
 
     profile: ProfileType | null
     status: string
@@ -22,8 +22,8 @@ const ProfileInfo: React.FC<ProfileInfoPropsType> = (props) => {
 
     let [editMode, setEditMode] = useState(false);
 
-    const onMainPhotoSelected = (e: any) => {
-        if (e.target.files.length) {
+    const onMainPhotoSelected = (e: ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files?.length) {
             props.savePhoto(e.target.files[0]);
         }
     }
@@ -32,7 +32,8 @@ const ProfileInfo: React.FC<ProfileInfoPropsType> = (props) => {
         setEditMode(true);
     }
 
-    const onSubmit = (formData: any) => {
+    const onSubmit = (formData: ProfileType) => {
+        // TODO: remove then
         props.saveProfile(formData).then(()=>{
             setEditMode(false);
         })
@@ -81,7 +82,6 @@ const ProfileInfo: React.FC<ProfileInfoPropsType> = (props) => {
 
                 {editMode ? <ProfileDataForm onSubmit={onSubmit}
                     initialValues={props.profile}
-                    // @ts-ignore
                     profile={props.profile} /> :
                     <ProfileData profile={props.profile} />}
 
@@ -105,8 +105,8 @@ const ProfileData: React.FC<ProfileDataPropsType> = (props) => {
         <div className={classes.contacts}>
             <div className={classes.contacts__item}><b>Contacts:</b></div>
             {Object.keys(props.profile.contacts).map(key => {
-                // @ts-ignore
-                return <Contacts contactTitle={key} contactValue={props.profile.contacts[key]} />
+                return <Contacts contactTitle={key} 
+                contactValue={props.profile.contacts[key as keyof ContactsType]} />
             })}
         </div>
     </div>
@@ -114,7 +114,7 @@ const ProfileData: React.FC<ProfileDataPropsType> = (props) => {
 
 type ContactsPropsType = {
     contactTitle: string
-    contactValue: string
+    contactValue: string | null
 }
 
 export const Contacts: React.FC<ContactsPropsType> = ({ contactTitle, contactValue }) => {

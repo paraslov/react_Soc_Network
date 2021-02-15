@@ -8,16 +8,8 @@ export const getProfileStatus = (state: AppStateType) => {
     return state.profilePage.status;
 } 
 
-export const getProfileChange = (state: AppStateType) => {
-    return state.profilePage.profileChange;
-} 
-
 export const getPostsData = (state: AppStateType) => {
     return state.profilePage.postsData
-}
-
-export const getNewPostText = (state: AppStateType) => {
-    return state.profilePage.newPostText
 }
 
 export const getAuthorizedUserId = (state: AppStateType) => {
